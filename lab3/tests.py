@@ -1,57 +1,69 @@
 """Peter Rasmussen, Lab 3, __main__.py
 
-This program tests selected modules, including  polynomial_list, polynomial_syntax_checker, and
-make_polynomial_list. Run this module in the PRasmussenLab3/lab3 directory.
+This program tests selected modules, including singly_linked_list, circular_list,
+and polynomial_syntax_checker.
+
+Run this module in the PRasmussenLab3/lab3 directory.
 
 """
 
 
-# Standard library imports
-import argparse
-
 # Local imports
-from node import Node
+from node import Node, SimpleNode
 
 
-def test_polynomial_list():
-    """Test polynomial_list module."""
-    from polynomial_list import PolynomialList
-    print("")
-    print(80 * "@")
-    print("polynomial_list tests:")
-    print("Test insert and traverse methods:")
-    passed = True
+def test_singly_linked_list():
+    """Test singly_linked_list module."""
+    from singly_linked_list import SinglyLinkedList
+
+    print(f"\n{80 * '@'}\nsingly_linked_list tests:")
+    print("Test add_nodes method:")
     try:
-        li = PolynomialList()
+        passed = True
+        node_a = SimpleNode('A')
+        node_b = SimpleNode('B')
+        node_c = SimpleNode('C')
+        node_d = SimpleNode('D')
+
+        linked_list = SinglyLinkedList()
+        linked_list.add(node_a)
+        linked_list.add(node_b)
+        linked_list.add(node_c)
+        linked_list.add(node_d)
+    except Exception as e:
+        print(f"\tFailed: {e}")
+        passed = False
+
+    print("Test display and reverse methods:")
+    if passed:
+        try:
+            print('Original list')
+            linked_list.display()
+            print(40 * '@')
+            print('Reversed list')
+            linked_list.reverse()
+            linked_list.display()
+        except Exception as e:
+            print(f"\tFailed: {e}")
+
+
+def test_circular_list():
+    """Test circular_list module."""
+    from circular_list import CircularList
+    print(f"\n{80 * '@'}\ncircular_list tests:")
+    print("Test insert and traverse methods:")
+    try:
+        li = CircularList()
         node_a = Node('A', 1)
         node_b = Node('B', 2)
-        node_x = Node('X', 2)
         node_c = Node('C', 4)
         li.insert(node_a, direction='right')
         li.insert(node_b, direction='right')
-        li.insert(node_x, direction='left')
         li.insert(node_c, direction='right')
         li.traverse(data=True)
         print("\tPassed")
     except Exception as e:
         print(f"\tFailed: {e}")
-        passed = False
-
-    print("")
-    print("Test merge_nodes method:")
-    if passed:
-        try:
-            def add_them(node_left, node_right):
-                return node_left.data + node_right.data
-            li.merge_nodes("A", "B", add_them)
-            li.traverse(data=True)
-            print("\tPassed")
-
-        except Exception as e:
-            print(f"\tFailed: {e}")
-    else:
-        print("\tCould not test merge_nodes method because of prior error with insert / traverse"
-              "methods")
 
 
 def test_polynomial_syntax_checker():
@@ -78,14 +90,12 @@ def test_polynomial_syntax_checker():
             print("\tFailed")
 
 
-def test_make_polynomial_list():
-    #from make_polynomial_list import MakePolynomialList
-    pass
-
 def main():
-    test_polynomial_list()
+    """Run each test."""
+    test_singly_linked_list()
+    test_circular_list()
     test_polynomial_syntax_checker()
-    test_make_polynomial_list()
+
 
 if __name__ == "__main__":
     main()
