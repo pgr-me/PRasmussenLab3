@@ -1,6 +1,7 @@
 """Peter Rasmussen, Lab 3, circular_list.py
 
-This module provides Node, PolynomialNode, and CircularList classes.
+This module provides CircularList class, which is a doubly-linked circular list and serves as the
+parent class for the PolynomialList class.
 
 """
 
@@ -11,7 +12,7 @@ from typing import Callable, Union
 from node import Node
 
 
-class DoublyLinkedCircularList:
+class CircularList:
     """Doubly-linked circular list."""
 
     def __init__(self):
@@ -21,11 +22,17 @@ class DoublyLinkedCircularList:
         self.size = 0
         self.names = set()
 
-    def insert(self, new_node: Node, direction: str) -> None:
-        """Insert item to the left of the header."""
+    def insert(self, new_node: Node, direction: str) -> bool:
+        """
+        Insert item to the left of the head or to the right of tail.
+        If inserting left, node becomes the new head. If inserting right, node becomes the new tail.
+        :param new_node: Node to insert
+        :param direction: Right or left
+        :return: True if node successfully inserted
+        """
 
         # Verify direction is either right or left
-        if direction not in ['right', 'left']:
+        if direction not in ["right", "left"]:
             raise ValueError("Direction {direction} must equal 'right' or 'left'.")
 
         # Verify new node is unique: if so, add node to names
@@ -45,7 +52,7 @@ class DoublyLinkedCircularList:
         else:
 
             # Insert to the right
-            if direction == 'right':
+            if direction == "right":
                 prev_node = self.tail
                 new_node.prev_node = prev_node
                 new_node.next_node = self.head
@@ -64,10 +71,17 @@ class DoublyLinkedCircularList:
 
         self.size += 1
 
-    def get_node(self, node_name: str):
-        """Return node if found."""
+        return True
+
+    def get_node(self, node_name: str) -> Union[Node, None]:
+        """
+        Return node if found.
+        :param node_name: Name of node
+        :return: Node if node found; otherwise None
+        """
 
         cur_node = self.head
+
         # Return cur_node if its name matches provided name
         if cur_node.name == node_name:
             return cur_node
@@ -79,53 +93,38 @@ class DoublyLinkedCircularList:
 
         return None
 
-    def is_head(self, node: Node):
-        """True if head points to node."""
+    def is_head(self, node: Node) -> bool:
+        """
+        True if head points to node.
+        :param node: Node object
+        :return: True if head points to node
+        """
         return node == self.head
 
-    def is_tail(self, node: Node):
-        """True if tail points to node."""
+    def is_tail(self, node: Node) -> bool:
+        """
+        True if tail points to node.
+        :param node: Node object
+        :return: True if tail points to node
+        """
         return node == self.tail
 
-    def merge_nodes(self, left_node_name: str, right_node_name: str, f: Callable):
-        """Merge left node into right node."""
-
-        if self.size == 0:
-            print("Cannot merge on an empty list.")
-
-        elif self.size == 1:
-            print("Cannot merge one node.")
-
-        elif left_node_name not in self.names:
-            print(f"Left node {left_node_name} not among nodes.")
-
-        elif right_node_name not in self.names:
-            print(f"Right node {right_node_name} not among nodes.")
-
-        else:
-            left_node = self.get_node(left_node_name)
-            right_node = self.get_node(right_node_name)
-
-            if left_node.next_node != right_node:
-                print("Node {left_node.name} is not to left of {right_node.name}")
-
-            else:
-                right_node.name = f"{left_node.name}{right_node.name}"
-                right_node.data = f(left_node, right_node)
-                self.remove(left_node_name)
-
-    def remove(self, node_name: Union[str, int]):
+    def remove(self, node_name: Union[str, int]) -> bool:
         """
         Remove node.
+        :param node_name: Name of node
+        :return: True if node successfully removed
         """
         if type(node_name) not in [str, int]:
             raise TypeError("Node names must either be integer or string.")
 
         elif self.size == 0:
             print("Cannot remove a node from an empty list.")
+            return False
 
         elif node_name not in self.names:
             print(f"Node {node_name} not among nodes in list.")
+            return False
 
         # Case when list is not empty and node is present
         else:
@@ -155,35 +154,12 @@ class DoublyLinkedCircularList:
 
             self.names.remove(node_name)
             self.size -= 1
+            return True
 
-    def search(self, node_name: str):
+    def search(self, node_name: str) -> bool:
         """
         True if node found.
+        :param node_name: Name of node
+        :return: True if node found
         """
         return node_name in self.names
-
-    def traverse(self, data: bool = False) -> None:
-        """Traverse the circular list left to right, from head to tail, and print each element along the way."""
-
-        if self.head is not None:
-            cur_node = self.head
-            counter = 0
-            print_statement = []
-            while counter < self.size:
-                line = []
-                if cur_node == self.head:
-                    line.append("Head")
-                if cur_node == self.tail:
-                    line.append("Tail")
-                line.append(f"\tNode {cur_node.name}")
-                if data:
-                    line.append(f": {cur_node.data}")
-                print_statement.append(" ".join(line))
-
-                cur_node = cur_node.next_node
-                counter += 1
-
-            print("\n".join(print_statement))
-
-        else:
-            print("Empty list: nothing to traverse.")

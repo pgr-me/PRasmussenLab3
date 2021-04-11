@@ -1,17 +1,21 @@
-"""Peter Rasmussen, Lab 3, circular_list.py
+"""Peter Rasmussen, Lab 3, node.py
 
-This module provides Node, PolynomialNode, and CircularList classes.
+This module provides Node class, which is the building block of the DoublyLinkedCircularList and
+PolynomialList classes.
 
 """
 
 
 class Node:
-    """Base node for circular doubly-linked list."""
+    """
+    Base node for circular doubly-linked list.
+    Includes sign and coef attributes which are used for polynomial expression simplification and
+    evaluation."""
 
     def __init__(self, name: str, data=None):
         """
         Set name and optionally set data attributes.
-        :param name: Name of node
+        :param data: Node name
         :param data: Node data
         """
         # function arguments
@@ -29,5 +33,3 @@ class Node:
     def __str__(self):
         """Return name of node in form of `Node {name}`"""
         return f"Node {self.name}"
-
-
