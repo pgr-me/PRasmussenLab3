@@ -12,7 +12,7 @@ from typing import Callable, Union
 from circular_list import CircularList
 
 
-class PolynomialCircularList(CircularList):
+class PolynomialList(CircularList):
     """Doubly-linked circular list customized for polynomial simplification and evaluation."""
 
     def __init__(self):
@@ -50,35 +50,5 @@ class PolynomialCircularList(CircularList):
             else:
                 right_node.name = f"{left_node.name}{right_node.name}"
                 right_node.data = f(left_node, right_node)
-                self.remove(left_node_name)
+                self.remove_node(left_node_name)
                 return True
-
-    def traverse(self, data: bool = False) -> None:
-        """
-        Traverse the circular list left to right, from head to tail, and print each element along
-        the way.
-        :param data: True to print node data
-        """
-
-        if self.head is not None:
-            cur_node = self.head
-            counter = 0
-            print_statement = []
-            while counter < self.size:
-                line = []
-                if cur_node == self.head:
-                    line.append("Head")
-                if cur_node == self.tail:
-                    line.append("Tail")
-                line.append(f"\tNode {cur_node.name}")
-                if data:
-                    line.append(f": {cur_node.data}")
-                print_statement.append(" ".join(line))
-
-                cur_node = cur_node.next_node
-                counter += 1
-
-            print("\n".join(print_statement))
-
-        else:
-            print("Empty list: nothing to traverse.")
