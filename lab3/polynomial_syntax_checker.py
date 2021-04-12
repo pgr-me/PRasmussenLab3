@@ -7,10 +7,13 @@ subsequent errors for the sake of simplicity. This class is used by the make_pol
 Polynomial statements with syntax errors are not simplified nor evaluated. Instead, an error message
 encapsulated in PolynomialSyntaxError object is written in lieu of the would-have-been outputs.
 
+This module was not integrated into polynomial_term and node modules is because it spans the term
+and node levels, and therefore I decided it belonged as its own module.
+
 """
 
 # Local imports
-from symbols import Symbols
+from lab3.symbols import Symbols
 
 
 class PolynomialSyntaxError(Exception):
@@ -110,13 +113,15 @@ class PolynomialSyntaxChecker(Symbols):
         return self.error == ""
 
     @staticmethod
-    def is_empty(n_numerals: int, n_operators: int) -> bool:
+    def is_empty(li: list) -> bool:
         """
         Determine whether string contains any numerals or operators.
         The string is "empty" if it only contains spaces and tabs.
-        :param n_numerals: Number of numerals in the string
-        :param n_operators: Number of operators in the string
-        :return: True if string contains zero numerals and operators
+        :param li: List of character counts by class
+        :return: True if string contains zero elements of interest
         """
-        return n_numerals + n_operators == 0
+        n = 0
+        for i in li:
+            n += i
+        return n == 0
 

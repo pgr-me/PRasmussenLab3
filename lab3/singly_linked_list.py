@@ -9,7 +9,7 @@ polynomials.
 from typing import Union
 
 # Local imports
-from node import Node, SimpleNode
+from lab3.nodes import PolynomialNode, SimpleNode
 
 
 class SinglyLinkedList:
@@ -29,10 +29,10 @@ class SinglyLinkedList:
     def add(self, node):
         """
         Add node to end of list.
-        :param node: Node to add
+        :param node: PolynomialNode to add
         :return: None
         """
-        if type(node) not in [SimpleNode, Node]:
+        if type(node) not in [SimpleNode, PolynomialNode]:
             raise TypeError('Can only add object of type SimpleNode.')
 
         node.set_next_node(self.head)
@@ -48,7 +48,7 @@ class SinglyLinkedList:
         """
         return (rank >= 1) & (rank <= self.size)
 
-    def ptr_to(self, rank) -> Union[SimpleNode, Node]:
+    def ptr_to(self, rank) -> Union[SimpleNode, PolynomialNode]:
         """
         Return pointer to node of specified rank.
         Function code based on material presented in lecture notes.
@@ -61,7 +61,7 @@ class SinglyLinkedList:
         else:
             raise IndexError('Rank out of range.')
 
-    def delete(self, rank) -> Union[SimpleNode, Node]:
+    def delete(self, rank) -> Union[SimpleNode, PolynomialNode]:
         """
         Delete node from linked list.
         Function code based on material presented in lecture notes.
@@ -87,7 +87,7 @@ class SinglyLinkedList:
         Insert node into linked list after item of specified rank.
         Function code based on material presented in lecture notes.
         """
-        if type(node) not in [SimpleNode, Node]:
+        if type(node) not in [SimpleNode, PolynomialNode]:
             raise TypeError('node must be of type SimpleNode.')
         self.size += 1  # Increase size by 1
 

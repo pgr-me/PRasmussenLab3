@@ -9,12 +9,12 @@ Run this module in the PRasmussenLab3/lab3 directory.
 
 
 # Local imports
-from node import Node, SimpleNode
+from lab3.nodes import PolynomialNode, SimpleNode
 
 
 def test_singly_linked_list():
     """Test singly_linked_list module."""
-    from singly_linked_list import SinglyLinkedList
+    from lab3.singly_linked_list import SinglyLinkedList
 
     print(f"\n{80 * '@'}\nsingly_linked_list tests:")
     print("Test add_nodes method:")
@@ -49,14 +49,17 @@ def test_singly_linked_list():
 
 def test_circular_list():
     """Test circular_list module."""
-    from circular_list import CircularList
+    from lab3.circular_list import CircularList
     print(f"\n{80 * '@'}\ncircular_list tests:")
     print("Test insert and traverse methods:")
     try:
         li = CircularList()
-        node_a = Node('A', 1)
-        node_b = Node('B', 2)
-        node_c = Node('C', 4)
+        node_a = PolynomialNode('A', datatype=int)
+        node_b = PolynomialNode('B', datatype=int)
+        node_c = PolynomialNode('C', datatype=int)
+        node_a.set_data(1)
+        node_b.set_data(2)
+        node_c.set_data(3)
         li.insert(node_a, direction='right')
         li.insert(node_b, direction='right')
         li.insert(node_c, direction='right')
@@ -68,7 +71,7 @@ def test_circular_list():
 
 def test_polynomial_syntax_checker():
     """Test polynomial syntax checker module."""
-    from polynomial_syntax_checker import PolynomialSyntaxChecker, PolynomialSyntaxError
+    from lab3.polynomial_syntax_checker import PolynomialSyntaxChecker, PolynomialSyntaxError
     print(f"\n{80 * '@'}\npolynomial_syntax_checker tests:")
     passed = True
     psc = PolynomialSyntaxChecker()

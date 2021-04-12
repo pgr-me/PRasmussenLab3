@@ -86,21 +86,12 @@ class Node(SimpleNode):
         self.datatype = datatype
         if datatype not in [dict, str, int]:
             raise TypeError("datatype {datatype} not one of dict, int, or str.")
-        if datatype is int:
-            self.data = 0
-        elif datatype is str:
-            self.data = ""
-        else:
-            # e.g., {"xy": {"coef": 1, "sign" 1}, ...}
-            self.data: Dict[str, Dict[str, int]] = {}
+        self.data = None
         self.echoed_string = ""
 
         # additional attributes
         self.prev_node = None
         self.tail = None
-        #self.sign = 1
-        #self.coef = 1
-        #self.valid_polynomial: Union[None, bool] = None
 
     def get_prev_node(self):
         """
@@ -125,14 +116,13 @@ class PolynomialNode(Node):
     evaluation.
     """
 
-    def __init__(self, name: str):
+    def __init__(self, name: Union[str, None] = None):
         """
         Set name and optionally set data attributes.
         :param name: PolynomialNode name
         """
         super().__init__(name)
         # function arguments
-        self.name = name
         # e.g., {"xy": {"coef": 1, "sign" 1}, ...}
         self.data: Dict[str, Dict[str, int]] = {}
         self.echoed_string = ""
@@ -141,6 +131,14 @@ class PolynomialNode(Node):
         self.sign = 1
         self.coef = 1
         self.valid_polynomial: Union[None, bool] = None
+        self.n_terms = 0
+
+    def is_valid_polynomial(self):
+        """
+
+        :return:
+        """
+
 
     def update_data(self, pt: PolynomialTerm):
         """
@@ -177,3 +175,5 @@ class PolynomialNode(Node):
         # If term is new, simply add it to dictionary
         else:
             self.data[pt.term] = {"coef": pt.coef, "sign": pt.sign}
+
+        self.n_terms = len(self.data)
