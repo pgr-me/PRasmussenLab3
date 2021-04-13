@@ -1,4 +1,4 @@
-"""Peter Rasmussen, Lab 3, make_polynomial_list.py
+"""Peter Rasmussen, Lab 3, parse_polynomial_input.py
 
 This module provides the PrefixPreProcessor class, which reads a file of prefix statements character
 by character and checks each prefix statement for errors. PrefixPreProcessor.preprocess_prefix_input
@@ -18,7 +18,7 @@ from lab3.polynomial_list import PolynomialList
 from lab3.polynomial_term import PolynomialTerm
 
 
-def make_polynomial_list(polynomial_in_file: Union[str, Path]) -> PolynomialList:
+def parse_polynomial_input(polynomial_in_file: Union[str, Path]) -> PolynomialList:
     """
     Parse polynomial input and organize into PolynomialList, which inherits from CircularList.
     :return: None
