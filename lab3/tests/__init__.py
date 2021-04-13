@@ -1,2 +1,2 @@
-"""Peter Rasmussen, Lab 3, nodes/__init__.py
+"""Peter Rasmussen, Lab 3, tests/__init__.py
 """

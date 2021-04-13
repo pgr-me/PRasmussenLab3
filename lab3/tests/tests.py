@@ -95,6 +95,12 @@ def test_parse_evaluation_input():
 
         index += 1
 
+def test_combine_terms():
+    pass
+
+def test_evaluate_terms():
+    pass
+
 
 
 #def test_polynomial_syntax_checker():

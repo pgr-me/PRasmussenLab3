@@ -1,4 +1,4 @@
-"""Peter Rasmussen, Lab 3, parse_evaluation_input.py
+"""Peter Rasmussen, Lab 3, evaluate.py
 
 This module parses the evaluation input and uses a two-dimensional singly-linked list (linked list
 of linked lists) to store variable: value pairs. Each evaluation term is provided as its own line,

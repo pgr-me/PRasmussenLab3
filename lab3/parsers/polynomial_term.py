@@ -25,6 +25,7 @@ class PolynomialTerm(Symbols):
         # Initialize coefficient to 1 and sign to +1
         self.coef: Union[str, int] = ""
         self.sign = 1
+        self.signed_coef: Union[int, None] = None
 
         # Initialize term as an empty string
         self.term = ""
@@ -114,6 +115,7 @@ class PolynomialTerm(Symbols):
             self.coef = 1
         else:
             self.coef = int(self.coef)
+        self.signed_coef = self.coef * self.sign
 
     def reinitialize(self):
         """

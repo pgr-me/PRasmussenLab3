@@ -1,4 +1,4 @@
-"""Peter Rasmussen, Lab 3, evaluation_list.py
+"""Peter Rasmussen, Lab 3, evaluation_input_list.py
 
 This module provides the list evaluation classes EvaluationList and VariableValueList. EvaluationList is a
 list of VariableValueList lists. Both classes inherit from the SinglyLinkedList class.

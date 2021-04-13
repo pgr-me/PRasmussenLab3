@@ -66,7 +66,6 @@ executed as a standalone program."
 # standard library imports
 import argparse
 from pathlib import Path
-from typing import Union
 
 # local imports
 from lab3.run import run
@@ -74,21 +73,23 @@ from lab3.run import run
 
 # Parse arguments
 arg_parser = argparse.ArgumentParser()
-arg_parser.add_argument("--in_file", "-i", type=Path, help="Input file path")
+arg_parser.add_argument("--evaluation_in_file", "-e", type=Path, help="Evaluation input file path")
+arg_parser.add_argument("--polynomial_in_file", "-p", type=Path, help="Polynomial input file path")
 arg_parser.add_argument("--out_file", "-o", type=Path, help="Output file path")
 arg_parser.add_argument(
     "--file_header",
     "-f",
     default="Peter Rasmussen, Lab 3",
     type=str,
-    help="Include numerals as operands",
+    help="Specify file header",
 )
 arg_parser.add_argument("--test", "-t", type=bool, default=False, help="True to run tests")
 args = arg_parser.parse_args()
 
 # Execute prefix-to-postfix conversion run function
 run(
-    args.in_file,
+    args.evaluation_in_file,
+    args.polynomial_in_file,
     args.out_file,
     args.file_header,
     args.test

@@ -110,6 +110,11 @@ class PolynomialNode(Node, Timer):
         if not self.valid and self.invalid_reason is None:
             self.invalid_reason = pt.invalid_reason
 
+        # Add signed coefficient term
+        coef = self.data[pt.term]["coef"]
+        sign = self.data[pt.term]["sign"]
+        self.data[pt.term]["signed_coef"] = sign * coef
+
     def record_symbol(self, symbol: str):
         if symbol:
             self.echoed_string += symbol
