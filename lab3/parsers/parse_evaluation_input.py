@@ -1,10 +1,8 @@
-"""Peter Rasmussen, Lab 3, parse_polynomial_input.py
+"""Peter Rasmussen, Lab 3, parse_evaluation_input.py
 
-This module provides the PrefixPreProcessor class, which reads a file of prefix statements character
-by character and checks each prefix statement for errors. PrefixPreProcessor.preprocess_prefix_input
-returns a list of dictionaries. Each dictionary corresponds to one line in the input file and
-contains prefix statements, errors (if any), and complexity metrics. This module uses the
-syntax_checker module to catch prefix syntax errors.
+This module parses the evaluation input and uses a two-dimensional singly-linked list (linked list
+of linked lists) to store variable: value pairs. Each evaluation term is provided as its own line,
+and each term is validated so that it conforms to the pattern variable-value ... variable-value.
 
 """
 
@@ -13,21 +11,19 @@ from pathlib import Path
 from typing import Union
 
 # local imports
-from lab3.nodes import PolynomialNode
-from lab3.polynomial_list import PolynomialList
-from lab3.polynomial_term import PolynomialTerm
+from lab3.lists.evaluation_lists import EvaluationList, ValuesList
 
 
-def parse_polynomial_input(polynomial_in_file: Union[str, Path]) -> PolynomialList:
+def parse_evaluation_input(evaluation_in_file: Union[str, Path]) -> None:
     """
     Parse polynomial input and organize into PolynomialList, which inherits from CircularList.
     :return: None
     """
     line = 1
-    term = PolynomialTerm()
-    node = PolynomialNode()
-    li = PolynomialList()
-    with open(polynomial_in_file, "r") as f:
+    values_li = ValuesList()
+    eval_li = EvaluationList()
+    values_node =
+    with open(evaluation_in_file, "r") as f:
 
         # While loop adapted from https://www.geeksforgeeks.org/python-program-to-read-character-by-character-from-a-file/
         # Specifically, lines 56 through 59
@@ -35,6 +31,7 @@ def parse_polynomial_input(polynomial_in_file: Union[str, Path]) -> PolynomialLi
 
             # Read and preprocess character
             symbol = f.read(1)
+            values_li.insert()
             term.increment_counts(symbol)
             term.validate_symbol(symbol)
             term.process_symbol(symbol)

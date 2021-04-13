@@ -9,13 +9,17 @@ polynomials.
 from typing import Union
 
 # Local imports
-from lab3.nodes import PolynomialNode, SimpleNode
+from lab3.nodes.simple_node import SimpleNode
+from lab3.nodes.polynomial_node import PolynomialNode
+
+# Local imports
+from lab3.utils import Timer
 
 
-class SinglyLinkedList:
+class SinglyLinkedList(Timer):
     """Singly linked list."""
-
     def __init__(self):
+        super().__init__()
         self.head = None
         self.size = 0
 

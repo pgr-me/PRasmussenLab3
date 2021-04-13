@@ -6,14 +6,12 @@ parent class for the PolynomialEvaluator class.
 """
 
 # Standard library imports
-from typing import Callable, Union
+from typing import Union
 
 # Local imports
-from lab3.nodes import PolynomialNode
 
 # Local imports
-from lab3.circular_list import CircularList
-from lab3.utils import Timer
+from lab3.lists.circular_list import CircularList
 
 
 class PolynomialList(CircularList):

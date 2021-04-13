@@ -9,7 +9,8 @@ parent class for the PolynomialEvaluator class.
 from typing import Callable, Union
 
 # Local imports
-from lab3.nodes import Node, PolynomialNode
+from lab3.nodes.node import Node
+from lab3.nodes.polynomial_node import PolynomialNode
 from lab3.symbols import Symbols
 from lab3.utils import Timer
 

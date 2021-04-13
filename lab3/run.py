@@ -12,6 +12,7 @@ from time import time_ns
 from typing import Union
 
 # local imports
+from lab3.tests import tests
 #from lab3.symbols import Symbols
 #from lab3.make_polynomial_list import MakeCircularList
 #from lab3.prefix_converter import PrefixConverter
@@ -89,5 +90,4 @@ def run(
     #    # write footer to file
     #    write_footer(f, metrics)
     if test:
-        from lab3 import tests
         tests.main()

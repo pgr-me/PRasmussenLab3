@@ -12,12 +12,13 @@ Run this module in the PRasmussenLab3/lab3 directory.
 from pathlib import Path
 
 # Local imports
-from lab3.nodes import PolynomialNode, SimpleNode
+from lab3.nodes.polynomial_node import PolynomialNode
+from lab3.nodes.simple_node import SimpleNode
 
 
 def test_singly_linked_list():
     """Test singly_linked_list module."""
-    from lab3.singly_linked_list import SinglyLinkedList
+    from lab3.lists.singly_linked_list import SinglyLinkedList
 
     print(f"\n{80 * '@'}\nsingly_linked_list tests:")
     print("Test add_nodes method:")
@@ -52,7 +53,7 @@ def test_singly_linked_list():
 
 def test_polynomial_list():
     """Test polynomial_list module."""
-    from lab3.polynomial_list import PolynomialList
+    from lab3.lists.polynomial_list import PolynomialList
     print(f"\n{80 * '@'}\npolynomial_list tests:")
     print("Test insert and traverse methods:")
     try:
@@ -71,11 +72,11 @@ def test_polynomial_list():
         print(f"\tFailed: {e}")
 
 def test_make_polynomial_list():
-    from make_polynomial_list import make_polynomial_list
+    from lab3.parsers.parse_polynomial_input import parse_polynomial_input
     print(f"\n{80 * '@'}\nmake_polynomial_list tests:")
     print("Test required polynomial input:")
     in_file = Path("tests") / "test_make_polynomial_list_input.txt"
-    li = make_polynomial_list(in_file)
+    li = parse_polynomial_input(in_file)
     li.traverse(data=True)
 
 

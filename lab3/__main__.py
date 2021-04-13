@@ -15,7 +15,7 @@ loops, a crude proxy for space complexity.
 Below the prefix-postfix outputs is a footer which provides a brief complexity summary. This summary
 lists the number of lines, runtime (in nanoseconds), and runtime per line for the three key methods
 used in this program: run (in run.py), PrefixPreprocessor.preprocess_prefix_input (in
-make_polynomial_list.py), and PrefixConverter.convert_prefix_to_postfix (in prefix_converter.py).
+parse_polynomial_input.py), and PrefixConverter.convert_prefix_to_postfix (in prefix_converter.py).
 The prefix_converter method complexity summary also includes the total number of recursive calls
 made. More details on these functions, including their definitions, are provided in each respective
 module.
