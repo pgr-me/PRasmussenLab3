@@ -11,6 +11,7 @@ from typing import Union
 # Local imports
 from lab3.nodes.simple_node import SimpleNode
 from lab3.nodes.polynomial_node import PolynomialNode
+from lab3.nodes.variable_value_node import VariableValueNode
 
 # Local imports
 from lab3.utils import Timer
@@ -36,7 +37,7 @@ class SinglyLinkedList(Timer):
         :param node: PolynomialNode to add
         :return: None
         """
-        if type(node) not in [SimpleNode, PolynomialNode]:
+        if type(node) not in [SimpleNode, PolynomialNode, VariableValueNode]:
             raise TypeError('Can only add object of type SimpleNode.')
 
         node.set_next_node(self.head)

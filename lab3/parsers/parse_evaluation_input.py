@@ -11,18 +11,22 @@ from pathlib import Path
 from typing import Union
 
 # local imports
-from lab3.lists.evaluation_lists import EvaluationList, ValuesList
+from lab3.lists.evaluation_list import EvaluationList
+from lab3.lists.variable_value_list import VariableValueList
+from lab3.nodes.variable_value_node import VariableValueNode
+from lab3.symbols import Symbols
 
 
-def parse_evaluation_input(evaluation_in_file: Union[str, Path]) -> None:
+def parse_evaluation_input(evaluation_in_file: Union[str, Path]) -> EvaluationList:
     """
     Parse polynomial input and organize into PolynomialList, which inherits from CircularList.
     :return: None
     """
     line = 1
-    values_li = ValuesList()
+    var_val_node = VariableValueNode()
+    var_val_li = VariableValueList()
     eval_li = EvaluationList()
-    values_node =
+    symbols = Symbols()
     with open(evaluation_in_file, "r") as f:
 
         # While loop adapted from https://www.geeksforgeeks.org/python-program-to-read-character-by-character-from-a-file/
@@ -31,54 +35,55 @@ def parse_evaluation_input(evaluation_in_file: Union[str, Path]) -> None:
 
             # Read and preprocess character
             symbol = f.read(1)
-            values_li.insert()
-            term.increment_counts(symbol)
-            term.validate_symbol(symbol)
-            term.process_symbol(symbol)
-            node.increment_columns(symbol)
-            node.record_symbol(symbol)
             print(symbol)
+            # Record input
+            var_val_li.record_input(symbol)
+
             # Case when we reach end of line or end of file
-            if (symbol == "\n") or (not symbol):
+            end_of_file_or_line = (symbol == "\n") or (not symbol)
+            end_of_node = var_val_node.variable is not None and symbols.is_variable(symbol)
 
-                # Update node and list line numbers
-                node.set_line(line)
-                li.set_line(line)
+            # Case when we finish populating a node or reach end of line / file
+            if end_of_file_or_line or end_of_node:
 
-                # Update node with term data
-                term.process_term()
-                node.update_node(term)
-                node.stop_timer()
+                # Conditionally process var_val_node
+                ready_for_processing = var_val_node.is_ready_for_processing()
+                if ready_for_processing:
+                    var_val_node.process_node()
 
-                # Insert node into circular list
-                if node.data != {}:
-                    li.insert(node, direction="right")
+                    # Add var_val_node to var_val_li
+                    var_val_li.add(var_val_node)
 
-                # Re-initialize term and node
-                term.reinitialize()
-                node = PolynomialNode()
+                # Case when we reach end of line or file
+                if end_of_file_or_line:
 
-                # Increment line number
-                line += 1
+                    # Append var_val_li to eval_li
+                    eval_li.append_item(var_val_li)
 
-            # Case when we reach the end of a term
-            elif term.is_end_of_term:
+                    # Re-initialize var_val_node and var_val_li
+                    var_val_node = VariableValueNode()
+                    var_val_li = VariableValueList()
 
-                # Update node
-                term.process_term()
-                node.update_node(term)
-                print(f"\tTerm: {term.term}")
-                # Re-initialize term
-                term.reinitialize()
+                    # Increment line number
+                    line += 1
 
-                # Process operator for next term
-                term.process_symbol(symbol)
+                # Case when we finish a node mid-line
+                else:
+
+                    # Re-initialize var_val_node
+                    var_val_node = VariableValueNode()
+
+                    # Update new node with symbol
+                    var_val_node.update_node(symbol)
+
+            # If mid-node, add qualifying symbols to node
+            else:
+                var_val_node.update_node(symbol)
 
             # Terminate while loop at end of file
             if not symbol:
-                li.validate_variables()
                 break
 
-    li.stop_timer()
+    eval_li.stop_timer()
 
-    return li
+    return eval_li

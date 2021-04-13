@@ -71,6 +71,7 @@ def test_polynomial_list():
     except Exception as e:
         print(f"\tFailed: {e}")
 
+
 def test_make_polynomial_list():
     from lab3.parsers.parse_polynomial_input import parse_polynomial_input
     print(f"\n{80 * '@'}\nmake_polynomial_list tests:")
@@ -78,6 +79,14 @@ def test_make_polynomial_list():
     in_file = Path("tests") / "test_make_polynomial_list_input.txt"
     li = parse_polynomial_input(in_file)
     li.traverse(data=True)
+
+
+def test_parse_evaluation_input():
+    from lab3.parsers.parse_evaluation_input import parse_evaluation_input
+    evaluation_in_file = Path("tests") / "test_parse_evaluation_input.txt"
+    eval_li = parse_evaluation_input(evaluation_in_file)
+    for var_val_li in eval_li:
+        var_val_li.display()
 
 
 #def test_polynomial_syntax_checker():
@@ -109,7 +118,7 @@ def main():
     test_singly_linked_list()
     test_polynomial_list()
     test_make_polynomial_list()
-    #test_polynomial_syntax_checker()
+    test_parse_evaluation_input()
 
 
 if __name__ == "__main__":

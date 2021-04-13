@@ -40,6 +40,7 @@ def parse_polynomial_input(polynomial_in_file: Union[str, Path]) -> PolynomialLi
             term.process_symbol(symbol)
             node.increment_columns(symbol)
             node.record_symbol(symbol)
+
             # Case when we reach end of line or end of file
             if (symbol == "\n") or (not symbol):
 
