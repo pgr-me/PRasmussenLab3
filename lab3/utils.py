@@ -7,6 +7,25 @@ This module provides miscellaneous utility functions used by other modules.
 # standard library imports
 from io import TextIOWrapper
 import os
+from time import time_ns
+from typing import Union
+
+
+class Timer:
+    """Measure elapsed time."""
+    def __init__(self):
+        self.start: int = time_ns()
+        self.stop: Union[int, None] = None
+        self.elapsed: Union[int, None] = None
+
+    def stop_timer(self) -> int:
+        """
+        Stop timer and compute elapsed time.
+        :return: Elapsed time
+        """
+        self.stop = time_ns()
+        self.elapsed = self.stop - self.start
+        return self.elapsed
 
 
 def array_to_string(a: list) -> str:

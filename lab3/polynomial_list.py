@@ -13,6 +13,7 @@ from lab3.nodes import PolynomialNode
 
 # Local imports
 from lab3.circular_list import CircularList
+from lab3.utils import Timer
 
 
 class PolynomialList(CircularList):
@@ -22,8 +23,19 @@ class PolynomialList(CircularList):
         """Construct an empty doubly-linked circular list."""
         super().__init__()
 
-    def validate_node_variables(self):
-        for name in self.names:
-            node = self.get_node(name)
-            if node.
+        # metrics
+        self.line: Union[int, None] = 0
 
+    def set_line(self, line: int):
+        """
+        Set line number.
+        :return:
+        """
+        self.line = line
+
+    def validate_variables(self):
+        """
+        Validate that each node has the same set of variables.
+        :return:
+        """
+        pass

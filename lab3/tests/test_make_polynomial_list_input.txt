@@ -1,0 +1,5 @@
+5x2y2z3+2x1y0z4+1x0y2z1+1x0y0z1
+3x4y4z4+12x3y0z0+1x0y2z2+2x0y1z3	 
+2x1y1z1
+25x1y1z1-3x1y0z4-12x0y1z3
+

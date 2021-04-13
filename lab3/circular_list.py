@@ -11,13 +11,15 @@ from typing import Callable, Union
 # Local imports
 from lab3.nodes import Node, PolynomialNode
 from lab3.symbols import Symbols
+from lab3.utils import Timer
 
 
-class CircularList:
+class CircularList(Timer):
     """Doubly-linked circular list."""
 
     def __init__(self):
         """Construct an empty doubly-linked circular list."""
+        super().__init__()
         self.head = None
         self.tail = None
         self.size = 0

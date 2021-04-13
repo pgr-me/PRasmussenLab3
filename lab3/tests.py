@@ -8,6 +8,9 @@ Run this module in the PRasmussenLab3/lab3 directory.
 """
 
 
+# Standard library imports
+from pathlib import Path
+
 # Local imports
 from lab3.nodes import PolynomialNode, SimpleNode
 
@@ -47,57 +50,65 @@ def test_singly_linked_list():
             print(f"\tFailed: {e}")
 
 
-def test_circular_list():
-    """Test circular_list module."""
-    from lab3.circular_list import CircularList
-    print(f"\n{80 * '@'}\ncircular_list tests:")
+def test_polynomial_list():
+    """Test polynomial_list module."""
+    from lab3.polynomial_list import PolynomialList
+    print(f"\n{80 * '@'}\npolynomial_list tests:")
     print("Test insert and traverse methods:")
     try:
-        li = CircularList()
-        node_a = PolynomialNode('A', datatype=int)
-        node_b = PolynomialNode('B', datatype=int)
-        node_c = PolynomialNode('C', datatype=int)
-        node_a.set_data(1)
-        node_b.set_data(2)
-        node_c.set_data(3)
+        li = PolynomialList()
+        node_a = PolynomialNode()
+        node_b = PolynomialNode()
+        node_c = PolynomialNode()
+        node_d = PolynomialNode()
         li.insert(node_a, direction='right')
         li.insert(node_b, direction='right')
         li.insert(node_c, direction='right')
+        li.insert(node_d, direction='right')
         li.traverse(data=True)
         print("\tPassed")
     except Exception as e:
         print(f"\tFailed: {e}")
 
+def test_make_polynomial_list():
+    from make_polynomial_list import make_polynomial_list
+    print(f"\n{80 * '@'}\nmake_polynomial_list tests:")
+    print("Test required polynomial input:")
+    in_file = Path("tests") / "test_make_polynomial_list_input.txt"
+    li = make_polynomial_list(in_file)
+    li.traverse(data=True)
 
-def test_polynomial_syntax_checker():
-    """Test polynomial syntax checker module."""
-    from lab3.polynomial_syntax_checker import PolynomialSyntaxChecker, PolynomialSyntaxError
-    print(f"\n{80 * '@'}\npolynomial_syntax_checker tests:")
-    passed = True
-    psc = PolynomialSyntaxChecker()
 
-    print("\nTest check_if_leading_zero method:")
-    try:
-        psc.check_if_leading_zero("054", column=1)
-        print("\tPassed")
-    except PolynomialSyntaxError:
-        passed = True
-        print("\tFailed")
-
-    print("\nTest check_if_legal_symbol method:")
-    if passed:
-        try:
-            psc.check_if_legal_symbol("$A+0", column=1)
-            print("\tPassed")
-        except PolynomialSyntaxError:
-            print("\tFailed")
+#def test_polynomial_syntax_checker():
+#    """Test polynomial syntax checker module."""
+#    from lab3.polynomial_syntax_checker import PolynomialSyntaxChecker, PolynomialSyntaxError
+#    print(f"\n{80 * '@'}\npolynomial_syntax_checker tests:")
+#    passed = True
+#    psc = PolynomialSyntaxChecker()
+#
+#    print("\nTest check_if_leading_zero method:")
+#    try:
+#        psc.check_if_leading_zero("054", column=1)
+#        print("\tPassed")
+#    except PolynomialSyntaxError:
+#        passed = True
+#        print("\tFailed")
+#
+#    print("\nTest check_if_legal_symbol method:")
+#    if passed:
+#        try:
+#            psc.check_if_legal_symbol("$A+0", column=1)
+#            print("\tPassed")
+#        except PolynomialSyntaxError:
+#            print("\tFailed")
 
 
 def main():
     """Run each test."""
     test_singly_linked_list()
-    test_circular_list()
-    test_polynomial_syntax_checker()
+    test_polynomial_list()
+    test_make_polynomial_list()
+    #test_polynomial_syntax_checker()
 
 
 if __name__ == "__main__":

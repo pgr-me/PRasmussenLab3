@@ -12,7 +12,7 @@ from time import time_ns
 from typing import Union
 
 # local imports
-from lab3.utils import Symbols
+#from lab3.symbols import Symbols
 #from lab3.make_polynomial_list import MakeCircularList
 #from lab3.prefix_converter import PrefixConverter
 #from lab3.utils import array_to_string, write_footer, write_header
