@@ -40,32 +40,37 @@ def make_polynomial_list(polynomial_in_file: Union[str, Path]) -> PolynomialList
             term.process_symbol(symbol)
             node.increment_columns(symbol)
             node.record_symbol(symbol)
-
+            print(symbol)
             # Case when we reach end of line or end of file
             if (symbol == "\n") or (not symbol):
+
                 # Update node and list line numbers
                 node.set_line(line)
                 li.set_line(line)
 
                 # Update node with term data
+                term.process_term()
                 node.update_node(term)
                 node.stop_timer()
 
                 # Insert node into circular list
-                li.insert(node, direction="right")
+                if node.data != {}:
+                    li.insert(node, direction="right")
 
-                # Re-initialize node
+                # Re-initialize term and node
+                term.reinitialize()
                 node = PolynomialNode()
 
                 # Increment line number
                 line += 1
 
             # Case when we reach the end of a term
-            elif term.end_of_term:
+            elif term.is_end_of_term:
 
                 # Update node
+                term.process_term()
                 node.update_node(term)
-
+                print(f"\tTerm: {term.term}")
                 # Re-initialize term
                 term.reinitialize()
 
@@ -75,6 +80,8 @@ def make_polynomial_list(polynomial_in_file: Union[str, Path]) -> PolynomialList
             # Terminate while loop at end of file
             if not symbol:
                 li.validate_variables()
-                li.stop_timer()
                 break
+
+    li.stop_timer()
+
     return li

@@ -165,6 +165,10 @@ class PolynomialNode(Node, Timer):
         if type(pt) != PolynomialTerm:
             raise TypeError("Must supply a polynomial term of type PolynomialTerm.")
 
+        # If term is empty, don't update the node with it
+        if pt.term == "":
+            return
+
         # If the term is a duplicate, we need to combine the new term with the current one
         if pt.term in self.data:
             current_sign = self.data[pt.term]["sign"]

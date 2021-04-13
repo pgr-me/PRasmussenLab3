@@ -4,7 +4,6 @@ This module provides the PolynomialTerm class, which processes term-level (e.g.,
 
 """
 
-
 # Standard library imports
 from typing import Union
 
@@ -24,7 +23,7 @@ class PolynomialTerm(Symbols):
         super().__init__()
 
         # Initialize coefficient to 1 and sign to +1
-        self.coef = 1
+        self.coef: Union[str, int] = ""
         self.sign = 1
 
         # Initialize term as an empty string
@@ -33,7 +32,7 @@ class PolynomialTerm(Symbols):
         # Metrics and record-keeping
         self.n_operators = 0
         self.n_symbols = 0
-        self.end_of_term = False
+        self.is_end_of_term = False
         self.orig_term: str = ""
         self.used_variables = set()
 
@@ -49,6 +48,20 @@ class PolynomialTerm(Symbols):
         # Only increment if we haven't reached the end-of-file
         if symbol:
             self.n_symbols += 1
+
+    def is_multi_numeral_coef(self, symbol: str) -> bool:
+        """
+        Determine if there is a multi-numeral coefficient in term.
+        :param symbol: Symbol to evaluate
+        :return: True if multi-numeral coefficient in term
+        """
+        if self.is_numeral(symbol) and not self.term:
+            for i in self.coef:
+                if not self.is_numeral(i):
+                    return False
+            return True
+        else:
+            return False
 
     def process_symbol(self, symbol: str):
         """
@@ -70,45 +83,47 @@ class PolynomialTerm(Symbols):
 
             # Extract term coefficient
             if self.is_numeral(symbol):
-                self.coef = int(symbol)
+                self.coef += symbol
 
             # Extract term variable
             if self.is_variable(symbol):
                 self.term += symbol
 
-        elif len(self.term) == 1 and self.is_operator(self.term) and self.is_numeral(symbol):
-            self.coef = int(symbol)
+        # Case when you have a multiple-numeral coefficient
+        elif self.is_multi_numeral_coef(symbol):
+            self.coef += symbol
 
         # Case when we reach the end of a term and the beginning of a new one
-        elif self.is_operator(symbol):
-            self.end_of_term = True
+        elif self.is_operator(symbol) and symbol:
+            self.is_end_of_term = True
 
         # Otherwise, add symbol to end of term
-        else:
+        elif self.is_numeral(symbol) or self.is_variable(symbol):
             self.term += symbol
 
         # Add variable to set of variables
         if self.is_variable(symbol):
             self.used_variables.add(symbol)
 
-    def process_term(self) -> dict:
+    def process_term(self):
         """
-        Compile term into a key-value pair of term and term_di.
-        :return: Term dictionary keyed by term.
+        Prepare term for incorporation into node.
+        :return: None.
         """
-        self.orig_term = f"{self.coef}{self.term}"
-        if self.sign == -1:
-            self.orig_term = "-" + self.orig_term
-        return {self.term: {"coef": self.coef, "sign": self.sign, "orig_term": self.orig_term}}
+        if self.coef == "":
+            self.coef = 1
+        else:
+            self.coef = int(self.coef)
 
     def reinitialize(self):
         """
         Wipe the object of its data.
         :return: None
         """
-        self.coef = 1
+        self.coef = ""
         self.sign = 1
         self.term = ""
+        self.is_end_of_term = False
 
     def set_term_as_invalid(self, reason: str):
         """
