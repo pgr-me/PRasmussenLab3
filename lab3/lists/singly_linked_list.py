@@ -19,6 +19,7 @@ from lab3.utils import Timer
 
 class SinglyLinkedList(Timer):
     """Singly linked list."""
+
     def __init__(self):
         super().__init__()
         self.head = None
@@ -53,7 +54,7 @@ class SinglyLinkedList(Timer):
         """
         return (rank >= 1) & (rank <= self.size)
 
-    def ptr_to(self, rank) -> Union[SimpleNode, PolynomialNode]:
+    def ptr_to(self, rank) -> Union[SimpleNode, PolynomialNode, VariableValueNode]:
         """
         Return pointer to node of specified rank.
         Function code based on material presented in lecture notes.
@@ -66,7 +67,7 @@ class SinglyLinkedList(Timer):
         else:
             raise IndexError('Rank out of range.')
 
-    def delete(self, rank) -> Union[SimpleNode, PolynomialNode]:
+    def delete(self, rank) -> Union[SimpleNode, PolynomialNode, VariableValueNode]:
         """
         Delete node from linked list.
         Function code based on material presented in lecture notes.
@@ -80,7 +81,7 @@ class SinglyLinkedList(Timer):
                 temp = self.head
                 self.head = temp.next_node
             else:
-                after: SimpleNode = self.ptr_to(rank - 1)
+                after: Union[SimpleNode, PolynomialNode, VariableValueNode] = self.ptr_to(rank - 1)
                 temp = after.next_node
                 after.next_node = temp.next_node
             self.size -= 1
@@ -92,7 +93,7 @@ class SinglyLinkedList(Timer):
         Insert node into linked list after item of specified rank.
         Function code based on material presented in lecture notes.
         """
-        if type(node) not in [SimpleNode, PolynomialNode]:
+        if type(node) not in [SimpleNode, PolynomialNode, VariableValueNode]:
             raise TypeError('node must be of type SimpleNode.')
         self.size += 1  # Increase size by 1
 
@@ -127,7 +128,6 @@ class SinglyLinkedList(Timer):
 
         # Iterate over each item in linked list
         for i in range(1, self.size + 1):
-
             # Set aside after pointer
             after = current.next_node
 

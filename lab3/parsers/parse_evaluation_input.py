@@ -57,8 +57,12 @@ def parse_evaluation_input(evaluation_in_file: Union[str, Path]) -> EvaluationLi
                 # Case when we reach end of line or file
                 if end_of_file_or_line:
 
-                    # Append var_val_li to eval_li
-                    eval_li.append_item(var_val_li)
+                    # Reverse list so nodes are organized in the order encountered
+                    var_val_li.reverse()
+
+                    # Conditionally append var_val_li to eval_li
+                    if var_val_li.head is not None:
+                        eval_li.append_item(var_val_li)
 
                     # Re-initialize var_val_node and var_val_li
                     var_val_node = VariableValueNode()

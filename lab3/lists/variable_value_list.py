@@ -21,8 +21,9 @@ class VariableValueList(SinglyLinkedList):
     def __init__(self):
         """Construct an empty list."""
         super().__init__()
+        self.name = ""
         self.valid = True
-        self.variables = set()
+        self.variables = []
         self.symbols = Symbols()
 
         # metrics
@@ -43,4 +44,29 @@ class VariableValueList(SinglyLinkedList):
         :return: None
         """
         if symbol != "\n":
-            self.echoed_input = symbol
+            self.echoed_input += symbol
+            if symbol not in self.symbols.other_symbols:
+                self.name += symbol
+        if self.symbols.is_variable(symbol):
+            self.variables.append(symbol)
+
+    def display(self) -> None:
+        """
+        Display construction of linked list.
+        Overwrites SinglyLinkedList method of same name.
+        :return: None
+        """
+        print(f'Head: {self.head}')
+        temp = self.head
+        for i in range(1, self.size + 1):
+            print(f'Rank {i}, {temp}, Next: {temp.next_node}')
+            temp = temp.next_node
+
+    def get_node(self, variable):
+        if variable not in self.variables:
+            raise ValueError("Variable not in set of variables.")
+        temp = self.head
+        for i in range(1, self.size + 1):
+            if temp.variable == variable:
+                return temp
+            temp = temp.next_node

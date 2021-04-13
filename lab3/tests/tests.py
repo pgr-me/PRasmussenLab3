@@ -85,8 +85,16 @@ def test_parse_evaluation_input():
     from lab3.parsers.parse_evaluation_input import parse_evaluation_input
     evaluation_in_file = Path("tests") / "test_parse_evaluation_input.txt"
     eval_li = parse_evaluation_input(evaluation_in_file)
-    for var_val_li in eval_li:
-        var_val_li.display()
+    index = 0
+    while index <= eval_li.index - 1:
+        var_val_li = eval_li.array[index]
+        print(f'Variable: Value Set: {var_val_li.name}')
+        for var in var_val_li.variables:
+            node = var_val_li.get_node(var)
+            print(f'\tVariable {var} = {node.value}')
+
+        index += 1
+
 
 
 #def test_polynomial_syntax_checker():
