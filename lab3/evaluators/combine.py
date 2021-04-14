@@ -14,28 +14,25 @@ from typing import Union
 from lab3.nodes.polynomial_node import PolynomialNode
 
 
-def add_expressions(node1: PolynomialNode, node2: PolynomialNode) -> dict:
+def add_expressions(node_d1: dict, node_d2: dict) -> dict:
     """
     Symbolically add two expressions.
-    :param node1: First node
-    :param node2: Second node
+    :param node_d1: First node dictionary
+    :param node_d2: Second node dictionary
     :return: Dictionary of outputs
     """
-    # Extract dictionaries from nodes
-    d1 = node1.data
-    d2 = node2.data
 
     # Find intersecting terms
-    set_intersection = {k for k in d1 if k in d2}
+    set_intersection = {k for k in node_d1 if k in node_d2}
 
     # Find disjoint terms and combine them
-    d = {k: v for k, v in d1.items() if k not in d2}
-    d2_disjoint = {k: v for k, v in d2.items() if k not in d1}
+    d = {k: v for k, v in node_d1.items() if k not in node_d2}
+    d2_disjoint = {k: v for k, v in node_d2.items() if k not in node_d1}
     d.update(d2_disjoint)
 
     # Combine like terms from intersection set
     for k in set_intersection:
-        signed_coef = int(d1[k]["signed_coef"]) + int(d2[k]["signed_coef"])
+        signed_coef = int(node_d1[k]["signed_coef"]) + int(node_d2[k]["signed_coef"])
         d[k] = {"signed_coef": signed_coef}
 
     return d
@@ -47,32 +44,31 @@ def concatenate_output_expressions(node_di: dict) -> str:
     :param node_di: Node dictionary of terms and coefficients
     :return: Concatenated output string of polynomial expressions
     """
+    # TODO: This concatenation is screwed up
     output_expression = ""
     for term, di in node_di.items():
         signed_coef = di["signed_coef"]
-        output_expression += f"{str(signed_coef)}{term}"
+        coef_term = f"{str(signed_coef)}{term}"
         if (signed_coef > 0) and output_expression:
-            output_expression += f"+{str(signed_coef)}{term}"
+            coef_term = f"+{coef_term}"
+        output_expression += coef_term
     return output_expression
 
-def multiply_expressions(node1, node2) -> Union[dict, str]:
+def multiply_expressions(node_d1, node_d2) -> Union[dict, str]:
     """
     Symbolically multiply expressions.
-    :param node1: First node to multiply
-    :param node2: Second node to multiply
+    :param node_d1: First node to multiply
+    :param node_d2: Second node to multiply
     :return: Product node data dict
     """
-    data_di1 = node1.data
-    data_di2 = node2.data
 
     # Double for loop to get at the term level
     d = {}
-    for term1, di1 in data_di1.items():
-        print(f"Term 1: {term1}")
+    for term1, di1 in node_d1.items():
 
         # Iterate over term2
-        for term2, di2 in data_di2.items():
-            print(f"\tTerm 2: {term2}")
+        for term2, di2 in node_d2.items():
+
             if len(term1) != len(term2):
                 return f"Length of 1st term, {term1}, doesn't equal length of 2nd, {term2}"
             if len(term1) % 2 != 0:

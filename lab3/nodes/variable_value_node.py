@@ -34,6 +34,7 @@ class VariableValueNode(SimpleNode):
         self.symbols = Symbols()
         self.valid = True
         self.value: Union[int, str] = ""
+        self.signed_value: Union[int, None] = None
         self.variable: Union[None, str] = name
         self.ready_for_processing = False
 
@@ -100,4 +101,4 @@ class VariableValueNode(SimpleNode):
                 self.sign = -1
             else:
                 self.sign = 1
-            self.value = int(self.value) * self.sign
+            self.signed_value = int(self.value) * self.sign

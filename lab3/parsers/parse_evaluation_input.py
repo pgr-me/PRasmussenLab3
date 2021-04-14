@@ -35,7 +35,7 @@ def parse_evaluation_input(evaluation_in_file: Union[str, Path]) -> EvaluationLi
 
             # Read and preprocess character
             symbol = f.read(1)
-            print(symbol)
+
             # Record input
             var_val_li.record_input(symbol)
 

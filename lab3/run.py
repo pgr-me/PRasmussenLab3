@@ -15,10 +15,11 @@ from typing import Union
 from lab3.parsers.parse_polynomial_input import parse_polynomial_input
 from lab3.parsers.parse_evaluation_input import parse_evaluation_input
 from lab3.polynomial_operations import polynomial_operations
-from lab3.evaluators.combine import add_expressions, concatenate_output_expressions, multiply_expressions
+from lab3.evaluators.combine import add_expressions, concatenate_output_expressions, \
+    multiply_expressions
 from lab3.symbols import Symbols
 from lab3.tests import tests
-from lab3.utils import write_header, write_footer
+from lab3.file_io import make_input_polynomial_string, write_header, write_footer
 
 
 def run(
@@ -55,11 +56,7 @@ def run(
         evaluation_li = parse_evaluation_input(evaluation_in_file)
 
         # Write each input polynomial expression
-        output_content += "\nPolynomial input expression definitions\n"
-        for node_name in symbols.node_names:
-            if node_name in polynomial_li.names:
-                input_polynomial_expression = polynomial_li.get_node(node_name).echoed_input
-                output_content += f"{node_name} = {input_polynomial_expression}\n"
+        output_content += make_input_polynomial_string(output_content, polynomial_li, symbols)
 
         # For each set of evaluation inputs, evaluate polynomials
         output_content += "\nPolynomial expression simplification and evaluation\n"
@@ -69,31 +66,60 @@ def run(
             node_label1, op, node_label2 = polynomial_operation
             node1 = polynomial_li.get_node(node_label1)
             node2 = polynomial_li.get_node(node_label2)
+            node_d1, node_d2 = node1.data, node2.data
 
             # Echo operation (e.g., A + B)
             output_content += f"{polynomial_operation}\n"
 
             # Echo polynomial expression input
-            input_expression = f"Input:\t{node1.echoed_input} {op} {node2.echoed_input}\n"
+            lhs = 1
+            rhs = 1
+            def remove_cruft(string: str)->str:
+                """
+                Remove cruft symbols (e.g., \t) from input so it's easier to read.
+                :param string: String to de-cruft
+                :return: De-crufted output string
+                """
+            input_expression = f"Input:\t({node1.echoed_input}){op}({node2.echoed_input})\n"
             output_content += input_expression
 
-            # Case when we add or subtract terms
-            if op in ("+", "-"):
+            # Verify operator is supported by this implementation
+            if op not in ("+", "-", "*"):
+                # Raise error if a non-supported operator provided
+                output_content += f"Output:\tOperator {op} is not supported."
 
-                # Distribute minus term to node2 data so we can add
-                if op == "-":
-                    for term, di in node2.data.items():
-                        di["signed_coef"] *= -1
+            # Otherwise, process terms
+            else:
+                # Case when we add or subtract terms
+                if op in ("+", "-"):
 
-                # Add the terms
-                simplified_expressions = add_expressions(node1, node2)
+                    # Distribute minus term to node2 data so we can add
+                    if op == "-":
+                        for term, di in node_d2.items():
+                            di["signed_coef"] *= -1
 
+                    # Add the terms
+                    simplified_expressions = add_expressions(node_d1, node_d2)
+
+                # Case when we multiply terms
+                else:
+                    simplified_expressions = multiply_expressions(node_d1, node_d2)
+
+                # Evaluate expressions for each variable-value set
+                eval_li_index = 0
+                while eval_li_index < evaluation_li.index:
+                    evaluation_set = evaluation_li.array[eval_li_index]
+
+                    eval_li_index += 1
+
+                pass
+
+                # Build simplified expressions output string
                 simplified_expressions_str = concatenate_output_expressions(simplified_expressions)
                 output_content += f"Output:\t{simplified_expressions_str}\n"
 
-                print('here')
-
-            print(f"After: {node2.data}")
+                # Skip a line between expression evaluations
+                output_content += "\n"
         print("here")
 
         # index = 0
