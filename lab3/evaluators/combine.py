@@ -35,10 +35,25 @@ def add_expressions(node1: PolynomialNode, node2: PolynomialNode) -> dict:
 
     # Combine like terms from intersection set
     for k in set_intersection:
-        d[k] = d1[k]["signed_coef"] + d2[k]["signed_coef"]
+        signed_coef = int(d1[k]["signed_coef"]) + int(d2[k]["signed_coef"])
+        d[k] = {"signed_coef": signed_coef}
 
     return d
 
+
+def concatenate_output_expressions(node_di: dict) -> str:
+    """
+    Concatenate output polynomial expressions.
+    :param node_di: Node dictionary of terms and coefficients
+    :return: Concatenated output string of polynomial expressions
+    """
+    output_expression = ""
+    for term, di in node_di.items():
+        signed_coef = di["signed_coef"]
+        output_expression += f"{str(signed_coef)}{term}"
+        if (signed_coef > 0) and output_expression:
+            output_expression += f"+{str(signed_coef)}{term}"
+    return output_expression
 
 def multiply_expressions(node1, node2) -> Union[dict, str]:
     """
@@ -81,6 +96,6 @@ def multiply_expressions(node1, node2) -> Union[dict, str]:
             signed_coef = di1["signed_coef"] * di2["signed_coef"]
 
             # Add product-term: signed coefficient pair to dictionary
-            d[prod_term] = signed_coef
+            d[prod_term] = {"signed_coef": signed_coef}
 
     return d

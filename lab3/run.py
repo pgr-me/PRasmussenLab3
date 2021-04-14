@@ -14,8 +14,11 @@ from typing import Union
 # local imports
 from lab3.parsers.parse_polynomial_input import parse_polynomial_input
 from lab3.parsers.parse_evaluation_input import parse_evaluation_input
-from lab3.evaluators.combine import add_expressions, multiply_expressions
+from lab3.polynomial_operations import polynomial_operations
+from lab3.evaluators.combine import add_expressions, concatenate_output_expressions, multiply_expressions
+from lab3.symbols import Symbols
 from lab3.tests import tests
+from lab3.utils import write_header, write_footer
 
 
 def run(
@@ -40,34 +43,89 @@ def run(
         tests.main()
 
     else:
+        symbols = Symbols()
+
+        # Initialize output content, which we'll write to output file
+        output_content = ""
+
         # Read and parse polynomial input
         polynomial_li = parse_polynomial_input(polynomial_in_file)
 
         # Read and parse evaluation input
         evaluation_li = parse_evaluation_input(evaluation_in_file)
 
-        node_c = polynomial_li.get_node("C")
-        node_d = polynomial_li.get_node("D")
-        d_c = node_c.data
-        d_d = node_d.data
+        # Write each input polynomial expression
+        output_content += "\nPolynomial input expression definitions\n"
+        for node_name in symbols.node_names:
+            if node_name in polynomial_li.names:
+                input_polynomial_expression = polynomial_li.get_node(node_name).echoed_input
+                output_content += f"{node_name} = {input_polynomial_expression}\n"
 
+        # For each set of evaluation inputs, evaluate polynomials
+        output_content += "\nPolynomial expression simplification and evaluation\n"
+        for polynomial_operation in polynomial_operations:
 
-        d_cd_prod = multiply_expressions(node_c, node_d)
+            # Extract node data from polynomial list
+            node_label1, op, node_label2 = polynomial_operation
+            node1 = polynomial_li.get_node(node_label1)
+            node2 = polynomial_li.get_node(node_label2)
 
-        d_cd_sum = add_expressions(node_c, node_d)
+            # Echo operation (e.g., A + B)
+            output_content += f"{polynomial_operation}\n"
+
+            # Echo polynomial expression input
+            input_expression = f"Input:\t{node1.echoed_input} {op} {node2.echoed_input}\n"
+            output_content += input_expression
+
+            # Case when we add or subtract terms
+            if op in ("+", "-"):
+
+                # Distribute minus term to node2 data so we can add
+                if op == "-":
+                    for term, di in node2.data.items():
+                        di["signed_coef"] *= -1
+
+                # Add the terms
+                simplified_expressions = add_expressions(node1, node2)
+
+                simplified_expressions_str = concatenate_output_expressions(simplified_expressions)
+                output_content += f"Output:\t{simplified_expressions_str}\n"
+
+                print('here')
+
+            print(f"After: {node2.data}")
+        print("here")
+
+        # index = 0
+        # while index < evaluation_li.index:
+        #    evaluation_set = evaluation_li.array[index]
+
+        #    index += 1
+
+        # node_c = polynomial_li.get_node("C")
+        # node_d = polynomial_li.get_node("D")
+        # d_c = node_c.data
+        # d_d = node_d.data
+
+        # d_cd_prod = multiply_expressions(node_c, node_d)
+
+        # d_cd_sum = add_expressions(node_c, node_d)
+
+        def evaluate():
+            pass
 
         # Combine polynomial input
-        print(d_c)
-        print(d_d)
-        print(d_cd_prod)
-        print('here')
-        # For each set of evaluation inputs, evaluate polynomials
+        # print(d_c)
+        # print(d_d)
+        # print(d_cd_prod)
 
-        # with open(str(out_file), "w") as f:
+        operation_message = "Polynomial simplification and evaluation"
+        in_files = [polynomial_in_file, evaluation_in_file]
+        with open(str(out_file), "w") as f:
 
-        #    # Write header to file
-        #    write_header(f, file_header, in_file, out_file)
-
+            # Write header to file
+            write_header(f, file_header, in_files, out_file, operation_message)
+            f.write(output_content)
         #    # Convert each line of prefix, as allowed, into postfix equivalents
         #    n_recursive_calls = 0
         #    prefix_converter_elapsed = 0
