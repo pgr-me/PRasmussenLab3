@@ -61,83 +61,74 @@ def run(
         # Write each input polynomial expression
         output_content += make_input_polynomial_string(polynomial_li, symbols)
 
-        ## For each set of evaluation inputs, evaluate polynomials
-        #for polynomial_operation in polynomial_operations:
+        # For each set of evaluation inputs, evaluate polynomials
+        for polynomial_operation in polynomial_operations:
 
-        #    # Extract node data from polynomial list
-        #    node_label1, op, node_label2 = polynomial_operation
-        #    node1 = polynomial_li.get_node(node_label1)
-        #    node2 = polynomial_li.get_node(node_label2)
-        #    node_d1, node_d2 = node1.data, node2.data
+            # Extract node data from polynomial list
+            node_label1, op, node_label2 = polynomial_operation
+            node1 = polynomial_li.get_node(node_label1)
+            node2 = polynomial_li.get_node(node_label2)
+            node_d1, node_d2 = node1.data, node2.data
 
-        #    # Echo operation (e.g., A + B)
-        #    output_content += f"{polynomial_operation}\n"
+            # Echo operation (e.g., A + B)
+            output_content += f"{polynomial_operation}\n"
 
-        #    # Echo polynomial expression input
-        #    lhs = remove_cruft(node1.echoed_input)
-        #    rhs = remove_cruft(node2.echoed_input)
-        #    input_expression = f"Input:\t({lhs}){op}({rhs})\n"
-        #    output_content += input_expression
+            # Echo polynomial expression input
+            lhs = remove_cruft(node1.echoed_input)
+            rhs = remove_cruft(node2.echoed_input)
+            input_expression = f"Input:\t({lhs}){op}({rhs})\n"
+            output_content += input_expression
 
-        #    # Verify operator is supported by this implementation
-        #    if op not in ("+", "-", "*"):
+            # Verify operator is supported by this implementation
+            if op not in ("+", "-", "*"):
 
-        #        # Raise error if a non-supported operator provided
-        #        output_content += f"Output:\tOperator {op} is not supported."
+                # Raise error if a non-supported operator provided
+                output_content += f"Output:\tOperator {op} is not supported."
 
-        #    # Otherwise, process terms
-        #    else:
-        #        # Case when we add or subtract terms
-        #        if op in ("+", "-"):
+            # Otherwise, process terms
+            else:
+                # Case when we add or subtract terms
+                if op in ("+", "-"):
 
-        #            # Add the terms
-        #            simplified_expressions = add_expressions(node_d1, node_d2, op)
+                    # Add the terms
+                    simplified_expressions = add_expressions(node_d1, node_d2, op)
 
-        #        # Case when we multiply terms
-        #        else:
-        #            simplified_expressions = multiply_expressions(node_d1, node_d2)
+                # Case when we multiply terms
+                else:
+                    simplified_expressions = multiply_expressions(node_d1, node_d2)
 
 
-        #        # Build simplified expressions output string
-        #        simplified_expressions_str = concatenate_output_expressions(simplified_expressions)
-        #        output_content += f"Output:\t{simplified_expressions_str}\n"
+                # Build simplified expressions output string
+                simplified_expressions_str = concatenate_output_expressions(simplified_expressions)
+                output_content += f"Output:\t{simplified_expressions_str}\n"
 
-        #        # Evaluate expressions for each variable-value set
-        #        eval_li_index = 0
-        #        output_content += "Evaluation Set\t\t\tAnswer\n"
-        #        while eval_li_index < evaluation_li.index:
-        #            evaluation_set = evaluation_li.array[eval_li_index]
-        #            echoed_input = evaluation_set.echoed_input
-        #            tabs = "\t" * (5 - int(len(echoed_input) / 8))
-        #            output_content += f"{echoed_input}{tabs}{1}\n"
+                # Evaluate expressions for each variable-value set
+                eval_li_index = 0
+                output_content += "Evaluation Set\t\t\tAnswer\n"
+                while eval_li_index < evaluation_li.index:
+                    evaluation_set = evaluation_li.array[eval_li_index]
+                    echoed_input = evaluation_set.echoed_input
+                    tabs = "\t" * max(0, (5 - int(len(echoed_input) / 8)))
 
-        #            eval_li_index += 1
-        #        # Skip a line between expression evaluations
-        #        output_content += "\n"
+                    # Evaluate polynomial expression
+                    expression_val = 0
+                    for term, di in simplified_expressions.items():
+                        term_val = 1
+                        for var_ix, var in enumerate(evaluation_set.variables):
+                            term_pow_ix = 2 * var_ix + 1
+                            var_val = evaluation_set.get_node(var).signed_value
+                            pow_val = int(term[term_pow_ix])
+                            term_val *= var_val**pow_val
+                        expression_val += term_val
 
-        ## index = 0
-        ## while index < evaluation_li.index:
-        ##    evaluation_set = evaluation_li.array[index]
+                    output_content += f"{echoed_input}{tabs}{expression_val}\n"
 
-        ##    index += 1
+                    eval_li_index += 1
 
-        ## node_c = polynomial_li.get_node("C")
-        ## node_d = polynomial_li.get_node("D")
-        ## d_c = node_c.data
-        ## d_d = node_d.data
+                # Skip a line between expression evaluations
+                output_content += "\n"
 
-        ## d_cd_prod = multiply_expressions(node_c, node_d)
-
-        ## d_cd_sum = add_expressions(node_c, node_d)
-
-        #def evaluate():
-        #    pass
-
-        # Combine polynomial input
-        # print(d_c)
-        # print(d_d)
-        # print(d_cd_prod)
-
+        # Write outputs to file
         with open(str(out_file), "w") as f:
 
             # Write header to file
