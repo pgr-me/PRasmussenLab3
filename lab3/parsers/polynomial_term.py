@@ -148,12 +148,12 @@ class PolynomialTerm(Symbols):
             return
 
         # Check if symbol is among accepted symbols
-        if not self.is_accepted_symbol(symbol):
+        if not self.is_accepted_symbol(symbol) and not self.is_other_symbol(symbol):
             self.set_term_as_invalid(f"Symbol {symbol} is illegal.")
 
         # Check if variable is repeated within a term (e.g., xxy2 is not allowed)
-        if self.is_variable(symbol) and symbol in self.used_variables:
-            self.set_term_as_invalid(f"Variable cannot be repeated in a term.")
+        #if self.is_variable(symbol) and symbol in self.used_variables:
+        #    self.set_term_as_invalid(f"Variable cannot be repeated in a term.")
 
     def validate_term(self) -> bool:
         """

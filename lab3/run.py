@@ -14,7 +14,7 @@ from typing import Union
 # local imports
 from lab3.parsers.parse_polynomial_input import parse_polynomial_input
 from lab3.parsers.parse_evaluation_input import parse_evaluation_input
-from lab3.evaluators.combine import add_expressions
+from lab3.evaluators.combine import add_expressions, multiply_expressions
 from lab3.tests import tests
 
 
@@ -52,9 +52,14 @@ def run(
         d_d = node_d.data
 
 
-        d12 = add_expressions(node_c, node_d)
+        d_cd_prod = multiply_expressions(node_c, node_d)
+
+        d_cd_sum = add_expressions(node_c, node_d)
 
         # Combine polynomial input
+        print(d_c)
+        print(d_d)
+        print(d_cd_prod)
         print('here')
         # For each set of evaluation inputs, evaluate polynomials
 

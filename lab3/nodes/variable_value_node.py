@@ -75,7 +75,7 @@ class VariableValueNode(SimpleNode):
             self.name = symbol
 
     def is_symbol_valid(self, symbol) -> bool:
-        if not self.symbols.is_accepted_symbol(symbol):
+        if symbol and not self.symbols.is_accepted_symbol(symbol):
             self.valid = False
         return self.valid
 

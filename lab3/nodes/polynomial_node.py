@@ -32,7 +32,7 @@ class PolynomialNode(Node, Timer):
         # function arguments
         # e.g., {"xy": {"coef": 1, "sign" 1}, ...}
         self.data: Dict[str, Dict[str, int]] = {}
-        self.echoed_string = ""
+        self.echoed_input = ""
 
         # metrics
         self.valid: bool = True
@@ -44,7 +44,7 @@ class PolynomialNode(Node, Timer):
         self.elapsed: Union[int, None] = None
         self.columns = 0
         self.line: Union[int, None] = None
-        self.echoed_string = ""
+        self.echoed_input = ""
 
     def increment_columns(self, symbol):
         """
@@ -116,5 +116,5 @@ class PolynomialNode(Node, Timer):
         self.data[pt.term]["signed_coef"] = sign * coef
 
     def record_symbol(self, symbol: str):
-        if symbol:
-            self.echoed_string += symbol
+        if symbol and symbol != '\n':
+            self.echoed_input += symbol
