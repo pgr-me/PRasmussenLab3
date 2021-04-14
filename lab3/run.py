@@ -12,6 +12,7 @@ from time import time_ns
 from typing import Union
 
 # local imports
+from lab3.file_io import make_input_polynomial_string, write_header, write_footer
 from lab3.parsers.parse_polynomial_input import parse_polynomial_input
 from lab3.parsers.parse_evaluation_input import parse_evaluation_input
 from lab3.polynomial_operations import polynomial_operations
@@ -19,7 +20,7 @@ from lab3.evaluators.combine import add_expressions, concatenate_output_expressi
     multiply_expressions
 from lab3.symbols import Symbols
 from lab3.tests import tests
-from lab3.file_io import make_input_polynomial_string, write_header, write_footer
+from lab3.utils import remove_cruft
 
 
 def run(
@@ -72,15 +73,9 @@ def run(
             output_content += f"{polynomial_operation}\n"
 
             # Echo polynomial expression input
-            lhs = 1
-            rhs = 1
-            def remove_cruft(string: str)->str:
-                """
-                Remove cruft symbols (e.g., \t) from input so it's easier to read.
-                :param string: String to de-cruft
-                :return: De-crufted output string
-                """
-            input_expression = f"Input:\t({node1.echoed_input}){op}({node2.echoed_input})\n"
+            lhs = remove_cruft(node1.echoed_input)
+            rhs = remove_cruft(node2.echoed_input)
+            input_expression = f"Input:\t({lhs}){op}({rhs})\n"
             output_content += input_expression
 
             # Verify operator is supported by this implementation
@@ -93,34 +88,30 @@ def run(
                 # Case when we add or subtract terms
                 if op in ("+", "-"):
 
-                    # Distribute minus term to node2 data so we can add
-                    if op == "-":
-                        for term, di in node_d2.items():
-                            di["signed_coef"] *= -1
-
                     # Add the terms
-                    simplified_expressions = add_expressions(node_d1, node_d2)
+                    simplified_expressions = add_expressions(node_d1, node_d2, op)
 
                 # Case when we multiply terms
                 else:
                     simplified_expressions = multiply_expressions(node_d1, node_d2)
 
-                # Evaluate expressions for each variable-value set
-                eval_li_index = 0
-                while eval_li_index < evaluation_li.index:
-                    evaluation_set = evaluation_li.array[eval_li_index]
-
-                    eval_li_index += 1
-
-                pass
 
                 # Build simplified expressions output string
                 simplified_expressions_str = concatenate_output_expressions(simplified_expressions)
                 output_content += f"Output:\t{simplified_expressions_str}\n"
 
+                # Evaluate expressions for each variable-value set
+                eval_li_index = 0
+                output_content += "Evaluation Set\t\t\tAnswer\n"
+                while eval_li_index < evaluation_li.index:
+                    evaluation_set = evaluation_li.array[eval_li_index]
+                    echoed_input = evaluation_set.echoed_input
+                    tabs = "\t" * (5 - int(len(echoed_input) / 8))
+                    output_content += f"{echoed_input}{tabs}{1}\n"
+
+                    eval_li_index += 1
                 # Skip a line between expression evaluations
                 output_content += "\n"
-        print("here")
 
         # index = 0
         # while index < evaluation_li.index:

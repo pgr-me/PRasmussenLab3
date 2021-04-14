@@ -4,10 +4,12 @@ This module provides miscellaneous utility functions used by other modules.
 
 """
 
-# standard library imports
+# Standard library imports
 from time import time_ns
 from typing import Union
 
+# Local imports
+from lab3.symbols import Symbols
 
 class Timer:
     """Measure elapsed time."""
@@ -48,3 +50,18 @@ def copy_list(in_li: list)->list:
     for i in in_li:
         out_li.append(i)
     return out_li
+
+
+def remove_cruft(string: str) -> str:
+    """
+    Remove cruft symbols (e.g., \t) from input so it's easier to read.
+    :param string: String to de-cruft
+    :return: De-crufted output string
+    """
+    symbols = Symbols()
+    output_string = ""
+    for char in string:
+        if char in symbols.accepted_symbols:
+            output_string += char
+
+    return output_string

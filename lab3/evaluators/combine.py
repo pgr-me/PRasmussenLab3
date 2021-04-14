@@ -7,20 +7,49 @@ and each term is validated so that it conforms to the pattern variable-value ...
 """
 
 # standard library imports
-from pathlib import Path
+from copy import deepcopy
 from typing import Union
 
 # local imports
 from lab3.nodes.polynomial_node import PolynomialNode
 
 
-def add_expressions(node_d1: dict, node_d2: dict) -> dict:
+def add_expressions(node_d1: dict, node_d2: dict, op: str) -> dict:
     """
     Symbolically add two expressions.
     :param node_d1: First node dictionary
     :param node_d2: Second node dictionary
     :return: Dictionary of outputs
     """
+
+    d2 = deepcopy(node_d2)
+
+    # Distribute minus term to node2 data so we can add
+    if op == "-":
+        for term, di in d2.items():
+            di["signed_coef"] *= -1
+
+    # Find intersecting terms
+    set_intersection = {k for k in node_d1 if k in d2}
+
+    # Find disjoint terms and combine them
+    d = {k: v for k, v in node_d1.items() if k not in d2}
+    d2_disjoint = {k: v for k, v in d2.items() if k not in node_d1}
+    d.update(d2_disjoint)
+
+    # Combine like terms from intersection set
+    for k in set_intersection:
+        signed_coef = int(node_d1[k]["signed_coef"]) + int(d2[k]["signed_coef"])
+        d[k] = {"signed_coef": signed_coef}
+
+    return d
+
+
+
+    # Distribute minus term to node2 data so we can add
+    if op == "-":
+        for term, di in node_d2.items():
+            di["signed_coef"] *= -1
 
     # Find intersecting terms
     set_intersection = {k for k in node_d1 if k in node_d2}
@@ -44,7 +73,6 @@ def concatenate_output_expressions(node_di: dict) -> str:
     :param node_di: Node dictionary of terms and coefficients
     :return: Concatenated output string of polynomial expressions
     """
-    # TODO: This concatenation is screwed up
     output_expression = ""
     for term, di in node_di.items():
         signed_coef = di["signed_coef"]
@@ -53,6 +81,7 @@ def concatenate_output_expressions(node_di: dict) -> str:
             coef_term = f"+{coef_term}"
         output_expression += coef_term
     return output_expression
+
 
 def multiply_expressions(node_d1, node_d2) -> Union[dict, str]:
     """
