@@ -45,23 +45,7 @@ def header_helper(paths, kind="Input"):
     return file_msg
 
 
-def write_footer(file: TextIOWrapper, footer_di: dict):
-    """
-    Write the footer of a prefix-to-postfix conversion file.
-    :param file: File-like object to write to
-    :param footer_di: Dictionary of function names & their performance metrics and associated values
-    """
-    footer_str = ""
-    for function_name, metric_di in footer_di.items():
-        footer_str += function_name + os.linesep
-        for metric, value in metric_di.items():
-            footer_str += f"\t{metric}: {value}" + os.linesep
-    file.write(os.linesep + f"# {98 * '@'}" + os.linesep)
-    file.write("Complexity outputs" + os.linesep)
-    file.write(footer_str)
-
-
-def write_header(file: TextIOWrapper, header: str, in_paths, out_paths, operation_message):
+def make_header(header: str, in_paths, out_paths, operation_message):
     """
     Write the header of a prefix-to-postfix conversion file.
     :param file: File-like object to write to
@@ -76,17 +60,15 @@ def write_header(file: TextIOWrapper, header: str, in_paths, out_paths, operatio
     header = (
         f"# {98 * '@'}\n"
         f"# {header}\n"
+        f"# {operation_message}\n"
         f"# {in_path_msg}"
         f"# {out_path_msg}"
         "\n"
     )
-    file.write(header)
-    file.write(f"# {98 * '@'}" + os.linesep)
-    file.write(f"# {operation_message}" + os.linesep)
+    return header
 
 
-def make_input_polynomial_string(output_content: str, polynomial_li: PolynomialList,
-                                 symbols: Symbols):
+def make_input_polynomial_string(polynomial_li: PolynomialList, symbols: Symbols):
     """
     Render string of polynomial input expression definitions.
     :param output_content: Output content to add to
@@ -94,6 +76,7 @@ def make_input_polynomial_string(output_content: str, polynomial_li: PolynomialL
     :param symbols:
     :return: None
     """
+    output_content = f"{98 * '@'}"
     output_content += "\nPolynomial input expression definitions\n"
     for node_name in symbols.node_names:
         if node_name in polynomial_li.names:
@@ -101,3 +84,19 @@ def make_input_polynomial_string(output_content: str, polynomial_li: PolynomialL
             output_content += f"{node_name} = {input_polynomial_expression}\n"
 
     return output_content
+
+
+def write_footer(file: TextIOWrapper, footer_di: dict):
+    """
+    Write the footer of a prefix-to-postfix conversion file.
+    :param file: File-like object to write to
+    :param footer_di: Dictionary of function names & their performance metrics and associated values
+    """
+    footer_str = ""
+    for function_name, metric_di in footer_di.items():
+        footer_str += function_name + os.linesep
+        for metric, value in metric_di.items():
+            footer_str += f"\t{metric}: {value}" + os.linesep
+    file.write(os.linesep + f"# {98 * '@'}" + os.linesep)
+    file.write("Complexity outputs" + os.linesep)
+    file.write(footer_str)

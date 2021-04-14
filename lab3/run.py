@@ -12,7 +12,7 @@ from time import time_ns
 from typing import Union
 
 # local imports
-from lab3.file_io import make_input_polynomial_string, write_header, write_footer
+from lab3.file_io import make_input_polynomial_string, make_header, write_footer
 from lab3.parsers.parse_polynomial_input import parse_polynomial_input
 from lab3.parsers.parse_evaluation_input import parse_evaluation_input
 from lab3.polynomial_operations import polynomial_operations
@@ -48,7 +48,9 @@ def run(
         symbols = Symbols()
 
         # Initialize output content, which we'll write to output file
-        output_content = ""
+        in_files = [polynomial_in_file, evaluation_in_file]
+        operation_message = "Polynomial simplification and evaluation"
+        output_content = make_header(file_header, in_files, out_file, operation_message)
 
         # Read and parse polynomial input
         polynomial_li = parse_polynomial_input(polynomial_in_file)
@@ -57,91 +59,88 @@ def run(
         evaluation_li = parse_evaluation_input(evaluation_in_file)
 
         # Write each input polynomial expression
-        output_content += make_input_polynomial_string(output_content, polynomial_li, symbols)
+        output_content += make_input_polynomial_string(polynomial_li, symbols)
 
-        # For each set of evaluation inputs, evaluate polynomials
-        output_content += "\nPolynomial expression simplification and evaluation\n"
-        for polynomial_operation in polynomial_operations:
+        ## For each set of evaluation inputs, evaluate polynomials
+        #for polynomial_operation in polynomial_operations:
 
-            # Extract node data from polynomial list
-            node_label1, op, node_label2 = polynomial_operation
-            node1 = polynomial_li.get_node(node_label1)
-            node2 = polynomial_li.get_node(node_label2)
-            node_d1, node_d2 = node1.data, node2.data
+        #    # Extract node data from polynomial list
+        #    node_label1, op, node_label2 = polynomial_operation
+        #    node1 = polynomial_li.get_node(node_label1)
+        #    node2 = polynomial_li.get_node(node_label2)
+        #    node_d1, node_d2 = node1.data, node2.data
 
-            # Echo operation (e.g., A + B)
-            output_content += f"{polynomial_operation}\n"
+        #    # Echo operation (e.g., A + B)
+        #    output_content += f"{polynomial_operation}\n"
 
-            # Echo polynomial expression input
-            lhs = remove_cruft(node1.echoed_input)
-            rhs = remove_cruft(node2.echoed_input)
-            input_expression = f"Input:\t({lhs}){op}({rhs})\n"
-            output_content += input_expression
+        #    # Echo polynomial expression input
+        #    lhs = remove_cruft(node1.echoed_input)
+        #    rhs = remove_cruft(node2.echoed_input)
+        #    input_expression = f"Input:\t({lhs}){op}({rhs})\n"
+        #    output_content += input_expression
 
-            # Verify operator is supported by this implementation
-            if op not in ("+", "-", "*"):
-                # Raise error if a non-supported operator provided
-                output_content += f"Output:\tOperator {op} is not supported."
+        #    # Verify operator is supported by this implementation
+        #    if op not in ("+", "-", "*"):
 
-            # Otherwise, process terms
-            else:
-                # Case when we add or subtract terms
-                if op in ("+", "-"):
+        #        # Raise error if a non-supported operator provided
+        #        output_content += f"Output:\tOperator {op} is not supported."
 
-                    # Add the terms
-                    simplified_expressions = add_expressions(node_d1, node_d2, op)
+        #    # Otherwise, process terms
+        #    else:
+        #        # Case when we add or subtract terms
+        #        if op in ("+", "-"):
 
-                # Case when we multiply terms
-                else:
-                    simplified_expressions = multiply_expressions(node_d1, node_d2)
+        #            # Add the terms
+        #            simplified_expressions = add_expressions(node_d1, node_d2, op)
+
+        #        # Case when we multiply terms
+        #        else:
+        #            simplified_expressions = multiply_expressions(node_d1, node_d2)
 
 
-                # Build simplified expressions output string
-                simplified_expressions_str = concatenate_output_expressions(simplified_expressions)
-                output_content += f"Output:\t{simplified_expressions_str}\n"
+        #        # Build simplified expressions output string
+        #        simplified_expressions_str = concatenate_output_expressions(simplified_expressions)
+        #        output_content += f"Output:\t{simplified_expressions_str}\n"
 
-                # Evaluate expressions for each variable-value set
-                eval_li_index = 0
-                output_content += "Evaluation Set\t\t\tAnswer\n"
-                while eval_li_index < evaluation_li.index:
-                    evaluation_set = evaluation_li.array[eval_li_index]
-                    echoed_input = evaluation_set.echoed_input
-                    tabs = "\t" * (5 - int(len(echoed_input) / 8))
-                    output_content += f"{echoed_input}{tabs}{1}\n"
+        #        # Evaluate expressions for each variable-value set
+        #        eval_li_index = 0
+        #        output_content += "Evaluation Set\t\t\tAnswer\n"
+        #        while eval_li_index < evaluation_li.index:
+        #            evaluation_set = evaluation_li.array[eval_li_index]
+        #            echoed_input = evaluation_set.echoed_input
+        #            tabs = "\t" * (5 - int(len(echoed_input) / 8))
+        #            output_content += f"{echoed_input}{tabs}{1}\n"
 
-                    eval_li_index += 1
-                # Skip a line between expression evaluations
-                output_content += "\n"
+        #            eval_li_index += 1
+        #        # Skip a line between expression evaluations
+        #        output_content += "\n"
 
-        # index = 0
-        # while index < evaluation_li.index:
-        #    evaluation_set = evaluation_li.array[index]
+        ## index = 0
+        ## while index < evaluation_li.index:
+        ##    evaluation_set = evaluation_li.array[index]
 
-        #    index += 1
+        ##    index += 1
 
-        # node_c = polynomial_li.get_node("C")
-        # node_d = polynomial_li.get_node("D")
-        # d_c = node_c.data
-        # d_d = node_d.data
+        ## node_c = polynomial_li.get_node("C")
+        ## node_d = polynomial_li.get_node("D")
+        ## d_c = node_c.data
+        ## d_d = node_d.data
 
-        # d_cd_prod = multiply_expressions(node_c, node_d)
+        ## d_cd_prod = multiply_expressions(node_c, node_d)
 
-        # d_cd_sum = add_expressions(node_c, node_d)
+        ## d_cd_sum = add_expressions(node_c, node_d)
 
-        def evaluate():
-            pass
+        #def evaluate():
+        #    pass
 
         # Combine polynomial input
         # print(d_c)
         # print(d_d)
         # print(d_cd_prod)
 
-        operation_message = "Polynomial simplification and evaluation"
-        in_files = [polynomial_in_file, evaluation_in_file]
         with open(str(out_file), "w") as f:
 
             # Write header to file
-            write_header(f, file_header, in_files, out_file, operation_message)
             f.write(output_content)
         #    # Convert each line of prefix, as allowed, into postfix equivalents
         #    n_recursive_calls = 0
