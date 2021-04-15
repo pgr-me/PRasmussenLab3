@@ -1,17 +1,13 @@
 """Peter Rasmussen, Lab 3, combine.py
 
-This module parses the evaluation input and uses a two-dimensional singly-linked list (linked list
-of linked lists) to store variable: value pairs. Each evaluation term is provided as its own line,
-and each term is validated so that it conforms to the pattern variable-value ... variable-value.
+This module performs addition, multiplication, and subtraction operations for polynomial
+expressions.
 
 """
 
-# standard library imports
+# Standard library imports
 from copy import deepcopy
 from typing import Union
-
-# local imports
-from lab3.nodes.polynomial_node import PolynomialNode
 
 
 def add_expressions(node_d1: dict, node_d2: dict, op: str) -> dict:
@@ -40,26 +36,6 @@ def add_expressions(node_d1: dict, node_d2: dict, op: str) -> dict:
     # Combine like terms from intersection set
     for k in set_intersection:
         signed_coef = int(node_d1[k]["signed_coef"]) + int(d2[k]["signed_coef"])
-        d[k] = {"signed_coef": signed_coef}
-
-    return d
-
-    # Distribute minus term to node2 data so we can add
-    if op == "-":
-        for term, di in node_d2.items():
-            di["signed_coef"] *= -1
-
-    # Find intersecting terms
-    set_intersection = {k for k in node_d1 if k in node_d2}
-
-    # Find disjoint terms and combine them
-    d = {k: v for k, v in node_d1.items() if k not in node_d2}
-    d2_disjoint = {k: v for k, v in node_d2.items() if k not in node_d1}
-    d.update(d2_disjoint)
-
-    # Combine like terms from intersection set
-    for k in set_intersection:
-        signed_coef = int(node_d1[k]["signed_coef"]) + int(node_d2[k]["signed_coef"])
         d[k] = {"signed_coef": signed_coef}
 
     return d
