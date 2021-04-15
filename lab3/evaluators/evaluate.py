@@ -6,7 +6,7 @@ and each term is validated so that it conforms to the pattern variable-value ...
 
 """
 
-# standard library imports
+# Standard library imports
 from pathlib import Path
 from typing import Union
 
@@ -30,12 +30,12 @@ def parse_evaluation_input(evaluation_in_file: Union[str, Path]) -> EvaluationLi
     with open(evaluation_in_file, "r") as f:
 
         # While loop adapted from https://www.geeksforgeeks.org/python-program-to-read-character-by-character-from-a-file/
-        # Specifically, lines 56 through 59
+        # Specifically, lines 34 through 37
         while True:
 
             # Read and preprocess character
             symbol = f.read(1)
-            print(symbol)
+
             # Record input
             var_val_li.record_input(symbol)
 
