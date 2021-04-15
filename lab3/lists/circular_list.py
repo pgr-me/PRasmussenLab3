@@ -1,4 +1,4 @@
-"""Peter Rasmussen, Lab 3, circular_list.py
+"""Peter Rasmussen, Lab 3, lists/circular_list.py
 
 This module provides CircularList class, which is a doubly-linked circular list and serves as the
 parent class for the PolynomialEvaluator class.

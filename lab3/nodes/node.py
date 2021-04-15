@@ -1,8 +1,7 @@
-"""Peter Rasmussen, Lab 3, node.py
+"""Peter Rasmussen, Lab 3, nodes/node.py
 
-This module provides the SimpleNode, Node, and PolynomialNode classes.
-The SimpleNode and PolynomialNode classes are the building blocks of the SinglyLinkedList and
-DoublyLinkedCircularList classes used for polynomial simplification and evaluation.
+This module provides the Node class, which inherits from the SimpleNode and is one of the parents of
+the PolynomialNode class.
 
 """
 

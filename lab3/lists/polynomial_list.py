@@ -1,4 +1,4 @@
-"""Peter Rasmussen, Lab 3, polynomial_list.py
+"""Peter Rasmussen, Lab 3, lists/polynomial_list.py
 
 This module provides PolynomialList class, which is a doubly-linked circular list and serves as the
 parent class for the PolynomialEvaluator class.

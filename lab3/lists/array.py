@@ -5,9 +5,6 @@ value lists.
 
 """
 
-# Local imports
-from lab3.utils import Timer
-
 
 class Array:
     """Simple array."""

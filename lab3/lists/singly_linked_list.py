@@ -1,4 +1,4 @@
-"""Peter Rasmussen, Lab 3, circular_list.py
+"""Peter Rasmussen, Lab 3, lists/singly_linked_list.py
 
 This module provides SinglyLinkedList class, which the PolynomialEvaluator class uses to hold
 polynomials.

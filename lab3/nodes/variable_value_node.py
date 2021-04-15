@@ -1,8 +1,7 @@
-"""Peter Rasmussen, Lab 3, variable_value_node.py
+"""Peter Rasmussen, Lab 3, nodes/variable_value_node.py
 
-This module provides the SimpleNode, Node, and PolynomialNode classes.
-The SimpleNode and PolynomialNode classes are the building blocks of the SinglyLinkedList and
-DoublyLinkedCircularList classes used for polynomial simplification and evaluation.
+This module provides the VariableValueNode, which is a SimpleNode customized to hold and retrieve
+polynomial expression value-variable sets.
 
 """
 
