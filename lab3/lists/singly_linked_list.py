@@ -39,7 +39,7 @@ class SinglyLinkedList(Timer):
         :return: None
         """
         if type(node) not in [SimpleNode, PolynomialNode, VariableValueNode]:
-            raise TypeError('Can only add object of type SimpleNode.')
+            raise TypeError("Can only add object of type SimpleNode.")
 
         node.set_next_node(self.head)
         self.size += 1
@@ -65,7 +65,7 @@ class SinglyLinkedList(Timer):
                 here = here.next_node
             return here
         else:
-            raise IndexError('Rank out of range.')
+            raise IndexError("Rank out of range.")
 
     def delete(self, rank) -> Union[SimpleNode, PolynomialNode, VariableValueNode]:
         """
@@ -73,15 +73,17 @@ class SinglyLinkedList(Timer):
         Function code based on material presented in lecture notes.
         """
         if self.size == 0:
-            raise ValueError('Cannot delete from empty list.')
+            raise ValueError("Cannot delete from empty list.")
         if not self.valid_rank(rank):
-            raise IndexError('Rank out of range.')
+            raise IndexError("Rank out of range.")
         else:
             if rank == 1:
                 temp = self.head
                 self.head = temp.next_node
             else:
-                after: Union[SimpleNode, PolynomialNode, VariableValueNode] = self.ptr_to(rank - 1)
+                after: Union[
+                    SimpleNode, PolynomialNode, VariableValueNode
+                ] = self.ptr_to(rank - 1)
                 temp = after.next_node
                 after.next_node = temp.next_node
             self.size -= 1
@@ -94,7 +96,7 @@ class SinglyLinkedList(Timer):
         Function code based on material presented in lecture notes.
         """
         if type(node) not in [SimpleNode, PolynomialNode, VariableValueNode]:
-            raise TypeError('node must be of type SimpleNode.')
+            raise TypeError("node must be of type SimpleNode.")
         self.size += 1  # Increase size by 1
 
         # Insert at front of list if rank is 1
@@ -112,10 +114,10 @@ class SinglyLinkedList(Timer):
         """
         Display construction of linked list.
         """
-        print(f'Head: {self.head}')
+        print(f"Head: {self.head}")
         temp = self.head
         for i in range(1, self.size + 1):
-            print(f'Rank {i}, {temp}, Next: {temp.next_node}')
+            print(f"Rank {i}, {temp}, Next: {temp.next_node}")
             temp = temp.next_node
 
     def reverse(self) -> None:

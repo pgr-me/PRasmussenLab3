@@ -11,8 +11,10 @@ from typing import Union
 # Local imports
 from lab3.symbols import Symbols
 
+
 class Timer:
     """Measure elapsed time."""
+
     def __init__(self):
         self.start: int = time_ns()
         self.stop: Union[int, None] = None
@@ -40,7 +42,7 @@ def array_to_string(a: list) -> str:
     return s
 
 
-def copy_list(in_li: list)->list:
+def copy_list(in_li: list) -> list:
     """
     Make a deep copy of a list.
     :param in_li: Input list

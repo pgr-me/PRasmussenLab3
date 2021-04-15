@@ -8,7 +8,14 @@ errors, and then recursively each prefix statement, where possible, into its pos
 # Standard library imports
 from io import TextIOWrapper
 import os
-from pathlib import Path, PosixPath, PurePath, PurePosixPath, PureWindowsPath, WindowsPath
+from pathlib import (
+    Path,
+    PosixPath,
+    PurePath,
+    PurePosixPath,
+    PureWindowsPath,
+    WindowsPath,
+)
 from time import time_ns
 from typing import Union
 
@@ -26,10 +33,20 @@ def header_helper(paths, kind="Input"):
     """
     # Check type for kind
     if kind not in ["Input", "Output"]:
-        raise ValueError(f"Kind must be either 'Input' or 'Output'. You provided kind={kind}")
+        raise ValueError(
+            f"Kind must be either 'Input' or 'Output'. You provided kind={kind}"
+        )
 
     # Build the path identification portion of header
-    if type(paths) in [str, Path, PosixPath, PurePath, PurePosixPath, PureWindowsPath, WindowsPath]:
+    if type(paths) in [
+        str,
+        Path,
+        PosixPath,
+        PurePath,
+        PurePosixPath,
+        PureWindowsPath,
+        WindowsPath,
+    ]:
         file_msg = f"{kind} file: {paths.absolute()}\n"
 
     elif type(paths) in [list, tuple]:

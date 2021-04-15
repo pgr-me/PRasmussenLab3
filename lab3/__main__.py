@@ -73,8 +73,12 @@ from lab3.run import run
 
 # Parse arguments
 arg_parser = argparse.ArgumentParser()
-arg_parser.add_argument("--evaluation_in_file", "-e", type=Path, help="Evaluation input file path")
-arg_parser.add_argument("--polynomial_in_file", "-p", type=Path, help="Polynomial input file path")
+arg_parser.add_argument(
+    "--evaluation_in_file", "-e", type=Path, help="Evaluation input file path"
+)
+arg_parser.add_argument(
+    "--polynomial_in_file", "-p", type=Path, help="Polynomial input file path"
+)
 arg_parser.add_argument("--out_file", "-o", type=Path, help="Output file path")
 arg_parser.add_argument(
     "--file_header",
@@ -83,7 +87,9 @@ arg_parser.add_argument(
     type=str,
     help="Specify file header",
 )
-arg_parser.add_argument("--test", "-t", type=bool, default=False, help="True to run tests")
+arg_parser.add_argument(
+    "--test", "-t", type=bool, default=False, help="True to run tests"
+)
 args = arg_parser.parse_args()
 
 # Execute prefix-to-postfix conversion run function
@@ -92,5 +98,5 @@ run(
     args.polynomial_in_file,
     args.out_file,
     args.file_header,
-    args.test
+    args.test,
 )

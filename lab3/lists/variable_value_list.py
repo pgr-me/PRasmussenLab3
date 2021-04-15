@@ -56,10 +56,10 @@ class VariableValueList(SinglyLinkedList):
         Overwrites SinglyLinkedList method of same name.
         :return: None
         """
-        print(f'Head: {self.head}')
+        print(f"Head: {self.head}")
         temp = self.head
         for i in range(1, self.size + 1):
-            print(f'Rank {i}, {temp}, Next: {temp.next_node}')
+            print(f"Rank {i}, {temp}, Next: {temp.next_node}")
             temp = temp.next_node
 
     def get_node(self, variable):

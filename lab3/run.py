@@ -16,19 +16,22 @@ from lab3.file_io import make_input_polynomial_string, make_header, write_footer
 from lab3.parsers.parse_polynomial_input import parse_polynomial_input
 from lab3.parsers.parse_evaluation_input import parse_evaluation_input
 from lab3.polynomial_operations import polynomial_operations
-from lab3.evaluators.combine import add_expressions, concatenate_output_expressions, \
-    multiply_expressions
+from lab3.evaluators.combine import (
+    add_expressions,
+    concatenate_output_expressions,
+    multiply_expressions,
+)
 from lab3.symbols import Symbols
 from lab3.tests import tests
 from lab3.utils import remove_cruft
 
 
 def run(
-        evaluation_in_file: Path,
-        polynomial_in_file: Path,
-        out_file: Path,
-        file_header: str,
-        test: bool
+    evaluation_in_file: Path,
+    polynomial_in_file: Path,
+    out_file: Path,
+    file_header: str,
+    test: bool,
 ):
     """
     Symbolically combine polynomials and then evaluate for various evaluation sets.
@@ -97,9 +100,10 @@ def run(
                 else:
                     simplified_expressions = multiply_expressions(node_d1, node_d2)
 
-
                 # Build simplified expressions output string
-                simplified_expressions_str = concatenate_output_expressions(simplified_expressions)
+                simplified_expressions_str = concatenate_output_expressions(
+                    simplified_expressions
+                )
                 output_content += f"Output:\t{simplified_expressions_str}\n"
 
                 # Evaluate expressions for each variable-value set
@@ -118,8 +122,9 @@ def run(
                             term_pow_ix = 2 * var_ix + 1
                             var_val = evaluation_set.get_node(var).signed_value
                             pow_val = int(term[term_pow_ix])
-                            term_val *= var_val**pow_val
-                        expression_val += term_val
+                            var_to_the_pow = var_val ** pow_val
+                            term_val *= var_to_the_pow
+                        expression_val += di["signed_coef"] * term_val
 
                     output_content += f"{echoed_input}{tabs}{expression_val}\n"
 
@@ -128,46 +133,14 @@ def run(
                 # Skip a line between expression evaluations
                 output_content += "\n"
 
+        run_stop = time_ns()
+        run_elapsed = run_stop - run_start
+
+        output_content += "\n"
+        output_content += f"Runtime: {run_elapsed}"
+
         # Write outputs to file
         with open(str(out_file), "w") as f:
 
             # Write header to file
             f.write(output_content)
-        #    # Convert each line of prefix, as allowed, into postfix equivalents
-        #    n_recursive_calls = 0
-        #    prefix_converter_elapsed = 0
-        #    for line_di in file_di["prefix_data"]:
-        #        prefix: list = line_di["prefix"]
-        #        line: int = line_di["line"]
-        #        f.write(f"Line {line}: Prefix: {array_to_string(prefix)}, ")
-        #        prefix_converter = PrefixConverter(symbols.operands, symbols.operators)
-        #        if line_di["valid_prefix"]:
-        #            postfix = prefix_converter.convert_prefix_to_postfix(prefix)
-        #        elif line_di["error"] != "":
-        #            postfix = line_di["error"]
-        #        else:
-        #            postfix = "Nothing to process"
-        #        output = f"Postfix: {array_to_string(postfix)}"
-        #        f.write(output + os.linesep)
-        #        n_recursive_calls += prefix_converter.n_recursive_calls
-        #        prefix_converter_elapsed += prefix_converter.elapsed
-
-        #    # compile complexity metrics
-        #    lines = file_di["lines"]
-        #    run_elapsed = time_ns() - run_start
-        #    metrics = {
-        #        "run": dict(
-        #            lines=lines, elapsed_ns=run_elapsed, lines_per_ns=lines / run_elapsed
-        #        ),
-        #        "prefix_processor": dict(
-        #            elapsed_ns=file_di["elapsed"], lines_per_ns=lines / file_di["elapsed"]
-        #        ),
-        #        "prefix_converter": dict(
-        #            elapsed_ns=prefix_converter_elapsed,
-        #            lines_per_ns=lines / prefix_converter_elapsed,
-        #            n_recursive_calls=n_recursive_calls,
-        #        ),
-        #    }
-
-        #    # write footer to file
-        #    write_footer(f, metrics)

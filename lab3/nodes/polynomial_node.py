@@ -79,17 +79,13 @@ class PolynomialNode(Node, Timer):
         if pt.term in self.data:
             current_sign = self.data[pt.term]["sign"]
             current_coef = self.data[pt.term]["coef"]
-            self.data[pt.term]["coef"] = (
-                    current_sign * current_coef + pt.sign * pt.coef
-            )
+            self.data[pt.term]["coef"] = current_sign * current_coef + pt.sign * pt.coef
 
             # Account for sign changes
             if self.data[pt.term]["coef"] < 0:
                 self.data[pt.term]["sign"] = -1
                 self.data[pt.term]["coef"] *= -1
-            elif (self.data[pt.term]["coef"] > 0) and (
-                    self.data[pt.term]["sign"] < 0
-            ):
+            elif (self.data[pt.term]["coef"] > 0) and (self.data[pt.term]["sign"] < 0):
                 self.data[pt.term]["sign"] = 1
 
             # Remove term if sum of its parts sum yields coefficient of zero
@@ -116,5 +112,5 @@ class PolynomialNode(Node, Timer):
         self.data[pt.term]["signed_coef"] = sign * coef
 
     def record_symbol(self, symbol: str):
-        if symbol and symbol != '\n':
+        if symbol and symbol != "\n":
             self.echoed_input += symbol

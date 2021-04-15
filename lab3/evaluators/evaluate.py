@@ -41,7 +41,9 @@ def parse_evaluation_input(evaluation_in_file: Union[str, Path]) -> EvaluationLi
 
             # Case when we reach end of line or end of file
             end_of_file_or_line = (symbol == "\n") or (not symbol)
-            end_of_node = var_val_node.variable is not None and symbols.is_variable(symbol)
+            end_of_node = var_val_node.variable is not None and symbols.is_variable(
+                symbol
+            )
 
             # Case when we finish populating a node or reach end of line / file
             if end_of_file_or_line or end_of_node:

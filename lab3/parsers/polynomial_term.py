@@ -152,7 +152,7 @@ class PolynomialTerm(Symbols):
             self.set_term_as_invalid(f"Symbol {symbol} is illegal.")
 
         # Check if variable is repeated within a term (e.g., xxy2 is not allowed)
-        #if self.is_variable(symbol) and symbol in self.used_variables:
+        # if self.is_variable(symbol) and symbol in self.used_variables:
         #    self.set_term_as_invalid(f"Variable cannot be repeated in a term.")
 
     def validate_term(self) -> bool:
@@ -175,13 +175,16 @@ class PolynomialTerm(Symbols):
             if symbol % 2 == 0:
                 if not self.is_variable(symbol):
                     self.set_term_as_invalid(
-                        "Each even-indexed symbol should be a numeral.")
+                        "Each even-indexed symbol should be a numeral."
+                    )
                     return self.valid
 
             # Each odd-indexed symbol should be a numeral
             else:
                 if not self.is_numeral(symbol):
-                    self.set_term_as_invalid("Each odd-indexed symbol should be a numeral.")
+                    self.set_term_as_invalid(
+                        "Each odd-indexed symbol should be a numeral."
+                    )
                     return self.valid
 
             # Final symbol should be a numeral

@@ -44,8 +44,6 @@ def add_expressions(node_d1: dict, node_d2: dict, op: str) -> dict:
 
     return d
 
-
-
     # Distribute minus term to node2 data so we can add
     if op == "-":
         for term, di in node_d2.items():
@@ -99,7 +97,9 @@ def multiply_expressions(node_d1, node_d2) -> Union[dict, str]:
         for term2, di2 in node_d2.items():
 
             if len(term1) != len(term2):
-                return f"Length of 1st term, {term1}, doesn't equal length of 2nd, {term2}"
+                return (
+                    f"Length of 1st term, {term1}, doesn't equal length of 2nd, {term2}"
+                )
             if len(term1) % 2 != 0:
                 return "There is a variable-power imbalance in the terms: ratio must be 1:1"
 

@@ -32,7 +32,11 @@ class CircularList(Timer):
         Assign name to node.
         :return: Node name
         """
-        return self.symbols.node_names[self.size]
+        try:
+            return self.symbols.node_names[self.size]
+        except IndexError("You cannot pick a number of variables greater than the number of letters in the alphabet."):
+            raise
+
 
     def insert(self, new_node: Union[Node, PolynomialNode], direction: str) -> bool:
         """

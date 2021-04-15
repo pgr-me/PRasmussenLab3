@@ -17,7 +17,9 @@ class Symbols:
         self.operators = "+-"
         self.variables = "abcdefghijklmnopqrstuvwxyz"
         self.other_symbols = "\t\n "
-        self.accepted_symbols = self.node_names + self.numerals + self.operators + self.variables
+        self.accepted_symbols = (
+            self.node_names + self.numerals + self.operators + self.variables
+        )
 
     def is_accepted_symbol(self, symbol: str) -> bool:
         """

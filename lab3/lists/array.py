@@ -12,7 +12,7 @@ from lab3.utils import Timer
 class Array:
     """Simple array."""
 
-    def __init__(self, size=100):
+    def __init__(self, size=10000):
         """Initialize an empty array"""
         super().__init__()
         self.size = size
