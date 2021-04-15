@@ -1,61 +1,47 @@
 """Peter Rasmussen, Lab 3, __main__.py
 
-This program recursively converts a file of newline-delimited prefix expressions into an output of
-postfix expressions. Each line of the output begins with the line number of the prefix expression
-from the input file, followed by the echoed prefix expression and its postfix equivalent. Postfix
-expressions are not rendered for invalid prefix expressions (i.e., those that have syntax errors).
-In these cases, the prefix syntax error is written instead of a postfix expression.
+This program ingests polynomial expressions and performs addition, multiplication, and subtraction
+operations on those expressions. A variable-values dataset is used to evaluate the expressions
+across a range of values.
 
-Header statements make up the first four lines of the output file. Prefix processing outputs are
-listed line by line thereafter. Each line of prefix output begins with the line number of the
-corresponding prefix expression. Then, the original prefix statement is echoed. Finally, the postfix
-expression is written. Below the conversion outputs are complexity outputs: time and number of
-loops, a crude proxy for space complexity.
+Header statements make up the first seven lines of the output file. Polynomial operation and
+evaluation outputs are listed thereafter. Polynomials A, B, C, and D are defined underneath the
+header. Below the polynomial definitions, the outputs of the operations and evaluations are
+provided.
 
-Below the prefix-postfix outputs is a footer which provides a brief complexity summary. This summary
-lists the number of lines, runtime (in nanoseconds), and runtime per line for the three key methods
-used in this program: run (in run.py), PrefixPreprocessor.preprocess_prefix_input (in
-parse_polynomial_input.py), and PrefixConverter.convert_prefix_to_postfix (in prefix_converter.py).
-The prefix_converter method complexity summary also includes the total number of recursive calls
-made. More details on these functions, including their definitions, are provided in each respective
-module.
+Outputs are organized by operation (e.g., A+B). For each operation, the input polynomial expression
+is echoed and the output expression (e.g., result of A+B) is one line below. A simple table
+summarizes the evaluated answer alongside the evaluation set (e.g., x1y2z3). Below the polynomial
+expression operation and evaluation outputs is total runtime.
 
 Example output file:
 
-    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     # Peter Rasmussen, Lab 3
-    # Input file: /Users/peter/PycharmProjects/PRasmussenlab3/resources/additional_input.txt
-    # Output file: /Users/peter/PycharmProjects/PRasmussenlab3/resources/additional_output.txt
+    # Polynomial simplification and evaluation
+    # Input files:
+    #	/Users/peter/PycharmProjects/PRasmussenLab3/resources/additional_polynomial_input_04.txt
+    #	/Users/peter/PycharmProjects/PRasmussenLab3/resources/additional_evaluation_input_02.txt
+    # Output file: /Users/peter/PycharmProjects/PRasmussenLab3/resources/additional_output_04_02.txt
 
-    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    # Prefix-postfix conversion
-    Line 1: Prefix: Peter Rasmussen, Lab 3, Postfix: PrefixSyntaxError('Prefix statement cannot begin with an operand character')
-    ...
-    Line 14: Prefix: +$, Postfix: PrefixSyntaxError('Column 2: Too many operators, 2, for operand characters, 0.')
+    @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    Polynomial input expression definitions
+    A = 31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3
+    B = 7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3
+    C = a2b1c3d1e1-10a2b1c0d3e4+23a4b2c2d3e2+16a0b2c2d3e2-5a2b1c1d1e2
+    D = 4a3b1c0d1e2+24a4b4c2d0e2+28a2b3c2d1e0+18a1b3c0d2e1-16a1b4c4d0e2
+    A+B
+    Input:	(31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3)+(7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3)
+    Output:	31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3+7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3
+    Evaluation Set			Answer
+    a0b4c1d5e4				0
+    a2b3c5d0e1				-64772
 
-    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    Complexity outputs
-    run
-        lines: 15
-        elapsed_ns: 3136000
-        lines_per_ns: 4.783163265306122e-06
-    prefix_processor
-        elapsed_ns: 1904000
-        lines_per_ns: 7.878151260504201e-06
-    prefix_converter
-        elapsed_ns: 233000
-        lines_per_ns: 6.437768240343348e-05
-        n_recursive_calls: 17
-
-Upon execution, the user must provide the input file path (in_file) and output file path (out_file).
-Optionally, the user may specify whether to include numerals as acceptable operand symbols and
-whether to include additional operators. Please note that only single-digit numerals (0-9) are
-supported in this implementation. Additionally, the user may specify a file header that is
-prepended to the outputs. Please refer to the arg_parser statements for more information on these
-optional arguments.
+Upon execution, the user must provide the polynomial input file path (polynomial_in_file),
+evaluation input file path (evaluation_in_file), and output file path (out_file). Optionally, the
+user may specify whether to modify the default header and whether to run the tests module.
 
 Example execution:
-    python -m path/to/lab3 -i path/to/input_file.txt -o path/to/output_file.txt
+    python -m path/to/lab3 -p path/to/poly_file.txt -e path/to/eval_file.txt
 
 The structure of this package is based on the Python lab0 package that Scott Almes developed for
 this course. Per Scott Almes, this module "is the entry point into this program when the module is

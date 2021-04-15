@@ -1,7 +1,6 @@
 """Peter Rasmussen, Lab 3, file_io.py
 
-This module preprocesses an input file of prefix statements, checking each prefix statement for
-errors, and then recursively each prefix statement, where possible, into its postfix equivalent.
+This module provides file IO functions.
 
 """
 

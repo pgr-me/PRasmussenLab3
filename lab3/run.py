@@ -1,15 +1,13 @@
 """Peter Rasmussen, Lab 3, run.py
 
-This module preprocesses an input file of prefix statements, checking each prefix statement for
-errors, and then recursively each prefix statement, where possible, into its postfix equivalent.
+This module processes a polynomial expressions file and a corresponding variable-value evaluation
+file to symbolically combine and then evaluate polynomial expressions.
 
 """
 
 # standard library imports
-import os
 from pathlib import Path
 from time import time_ns
-from typing import Union
 
 # local imports
 from lab3.file_io import make_input_polynomial_string, make_header, write_footer
