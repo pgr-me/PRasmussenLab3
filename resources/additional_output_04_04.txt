@@ -1,0 +1,151 @@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# Peter Rasmussen, Lab 3
+# Polynomial simplification and evaluation
+# Input files:
+#	/Users/peter/PycharmProjects/PRasmussenLab3/resources/additional_polynomial_input_04.txt
+#	/Users/peter/PycharmProjects/PRasmussenLab3/resources/additional_evaluation_input_04.txt
+# Output file: /Users/peter/PycharmProjects/PRasmussenLab3/resources/additional_output_04_04.txt
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Polynomial input expression definitions
+A = 31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3
+B = 7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3
+C = a2b1c3d1e1-10a2b1c0d3e4+23a4b2c2d3e2+16a0b2c2d3e2-5a2b1c1d1e2
+D = 4a3b1c0d1e2+24a4b4c2d0e2+28a2b3c2d1e0+18a1b3c0d2e1-16a1b4c4d0e2
+A+B
+Input:	(31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3)+(7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3)
+Output:	31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3+7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3
+Evaluation Set			Answer
+a0b4c1d5e4				0
+a2b3c5d0e1				-64772
+a2b7c5d1e0				-444668
+a5b6c7d4e2				1007908606730
+
+A+C
+Input:	(31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3)+(a2b1c3d1e1-10a2b1c0d3e4+23a4b2c2d3e2+16a0b2c2d3e2-5a2b1c1d1e2)
+Output:	31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3+1a2b1c3d1e1-10a2b1c0d3e4+23a4b2c2d3e2+16a0b2c2d3e2-5a2b1c1d1e2
+Evaluation Set			Answer
+a0b4c1d5e4				512000
+a2b3c5d0e1				528
+a2b7c5d1e0				-444668
+a5b6c7d4e2				1014357049554
+
+A+D
+Input:	(31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3)+(4a3b1c0d1e2+24a4b4c2d0e2+28a2b3c2d1e0+18a1b3c0d2e1-16a1b4c4d0e2)
+Output:	31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3+4a3b1c0d1e2+24a4b4c2d0e2+28a2b3c2d1e0+18a1b3c0d2e1-16a1b4c4d0e2
+Evaluation Set			Answer
+a0b4c1d5e4				0
+a2b3c5d0e1				-841872
+a2b7c5d1e0				515732
+a5b6c7d4e2				1010704315170
+
+B+C
+Input:	(7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3)+(a2b1c3d1e1-10a2b1c0d3e4+23a4b2c2d3e2+16a0b2c2d3e2-5a2b1c1d1e2)
+Output:	7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3+1a2b1c3d1e1-10a2b1c0d3e4+23a4b2c2d3e2+16a0b2c2d3e2-5a2b1c1d1e2
+Evaluation Set			Answer
+a0b4c1d5e4				512000
+a2b3c5d0e1				-65300
+a2b7c5d1e0				0
+a5b6c7d4e2				6546631064
+
+B+D
+Input:	(7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3)+(4a3b1c0d1e2+24a4b4c2d0e2+28a2b3c2d1e0+18a1b3c0d2e1-16a1b4c4d0e2)
+Output:	7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3+4a3b1c0d1e2+24a4b4c2d0e2+28a2b3c2d1e0+18a1b3c0d2e1-16a1b4c4d0e2
+Evaluation Set			Answer
+a0b4c1d5e4				0
+a2b3c5d0e1				-907700
+a2b7c5d1e0				960400
+a5b6c7d4e2				2893896680
+
+C+D
+Input:	(a2b1c3d1e1-10a2b1c0d3e4+23a4b2c2d3e2+16a0b2c2d3e2-5a2b1c1d1e2)+(4a3b1c0d1e2+24a4b4c2d0e2+28a2b3c2d1e0+18a1b3c0d2e1-16a1b4c4d0e2)
+Output:	1a2b1c3d1e1-10a2b1c0d3e4+23a4b2c2d3e2+16a0b2c2d3e2-5a2b1c1d1e2+4a3b1c0d1e2+24a4b4c2d0e2+28a2b3c2d1e0+18a1b3c0d2e1-16a1b4c4d0e2
+Evaluation Set			Answer
+a0b4c1d5e4				512000
+a2b3c5d0e1				-842400
+a2b7c5d1e0				960400
+a5b6c7d4e2				9342339504
+
+B-A
+Input:	(7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3)-(31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3)
+Output:	7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3-31a3b4c3d4e1-11a4b1c0d0e0+1a4b1c3d3e3+13a2b3c2d4e0-24a1b3c4d4e3
+Evaluation Set			Answer
+a0b4c1d5e4				0
+a2b3c5d0e1				-65828
+a2b7c5d1e0				444668
+a5b6c7d4e2				-1007810418490
+
+B-D
+Input:	(7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3)-(4a3b1c0d1e2+24a4b4c2d0e2+28a2b3c2d1e0+18a1b3c0d2e1-16a1b4c4d0e2)
+Output:	7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3-4a3b1c0d1e2-24a4b4c2d0e2-28a2b3c2d1e0-18a1b3c0d2e1+16a1b4c4d0e2
+Evaluation Set			Answer
+a0b4c1d5e4				0
+a2b3c5d0e1				777100
+a2b7c5d1e0				-960400
+a5b6c7d4e2				-2795708440
+
+A*B
+Input:	(31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3)*(7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3)
+Output:	217a4b8c5d7e2-899a4b6c6d4e3-775a6b6c3d8e4+186a7b6c3d5e3-31a4b4c5d4e4+77a5b5c2d3e1-319a5b3c3d0e2-275a7b3c0d4e3+66a8b3c0d1e2-11a5b1c2d0e3-7a5b5c5d6e4+29a5b3c6d3e5+25a7b3c3d7e6-6a8b3c3d4e5+1a5b1c5d3e6-91a3b7c4d7e1+377a3b5c5d4e2+325a5b5c2d8e3-78a6b5c2d5e2+13a3b3c4d4e3+168a2b7c6d7e4-696a2b5c7d4e5-600a4b5c4d8e6+144a5b5c4d5e5-24a2b3c6d4e6
+Evaluation Set			Answer
+a0b4c1d5e4				0
+a2b3c5d0e1				-34478400
+a2b7c5d1e0				0
+a5b6c7d4e2				49479975855216853200
+
+A*C
+Input:	(31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3)*(a2b1c3d1e1-10a2b1c0d3e4+23a4b2c2d3e2+16a0b2c2d3e2-5a2b1c1d1e2)
+Output:	31a5b5c6d5e2-310a5b5c3d7e5+713a7b6c5d7e3+496a3b6c5d7e3-155a5b5c4d5e3+11a6b2c3d1e1-110a6b2c0d3e4+253a8b3c2d3e2+176a4b3c2d3e2-55a6b2c1d1e2-1a6b2c6d4e4+10a6b2c3d6e7-23a8b3c5d6e5-16a4b3c5d6e5+5a6b2c4d4e5-13a4b4c5d5e1+130a4b4c2d7e4-299a6b5c4d7e2-208a2b5c4d7e2+65a4b4c3d5e2+24a3b4c7d5e4-240a3b4c4d7e7+552a5b5c6d7e5+384a1b5c6d7e5-120a3b4c5d5e5
+Evaluation Set			Answer
+a0b4c1d5e4				0
+a2b3c5d0e1				0
+a2b7c5d1e0				0
+a5b6c7d4e2				6548604417545308863840
+
+A*D
+Input:	(31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3)*(4a3b1c0d1e2+24a4b4c2d0e2+28a2b3c2d1e0+18a1b3c0d2e1-16a1b4c4d0e2)
+Output:	124a6b5c3d5e3+744a7b8c5d4e3+868a5b7c5d5e1+558a4b7c3d6e2-496a4b8c7d4e3+44a7b2c0d1e2+264a8b5c2d0e2+308a6b4c2d1e0+198a5b4c0d2e1-176a5b5c4d0e2-4a7b2c3d4e5-24a8b5c5d3e5-28a6b4c5d4e3-18a5b4c3d5e4+16a5b5c7d3e5-52a5b4c2d5e2-312a6b7c4d4e2-364a4b6c4d5e0-234a3b6c2d6e1+208a3b7c6d4e2+96a4b4c4d5e5+576a5b7c6d4e5+672a3b6c6d5e3+432a2b6c4d6e4-384a2b7c8d4e5
+Evaluation Set			Answer
+a0b4c1d5e4				0
+a2b3c5d0e1				-444787200
+a2b7c5d1e0				-427059147200
+a5b6c7d4e2				2867161321593280281600
+
+B*A
+Input:	(7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3)*(31a3b4c3d4e1+11a4b1c0d0e0-1a4b1c3d3e3-13a2b3c2d4e0+24a1b3c4d4e3)
+Output:	217a4b8c5d7e2+77a5b5c2d3e1-7a5b5c5d6e4-91a3b7c4d7e1+168a2b7c6d7e4-899a4b6c6d4e3-319a5b3c3d0e2+29a5b3c6d3e5+377a3b5c5d4e2-696a2b5c7d4e5-775a6b6c3d8e4-275a7b3c0d4e3+25a7b3c3d7e6+325a5b5c2d8e3-600a4b5c4d8e6+186a7b6c3d5e3+66a8b3c0d1e2-6a8b3c3d4e5-78a6b5c2d5e2+144a5b5c4d5e5-31a4b4c5d4e4-11a5b1c2d0e3+1a5b1c5d3e6+13a3b3c4d4e3-24a2b3c6d4e6
+Evaluation Set			Answer
+a0b4c1d5e4				0
+a2b3c5d0e1				-34478400
+a2b7c5d1e0				0
+a5b6c7d4e2				49479975855216853200
+
+B*C
+Input:	(7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3)*(a2b1c3d1e1-10a2b1c0d3e4+23a4b2c2d3e2+16a0b2c2d3e2-5a2b1c1d1e2)
+Output:	7a3b5c5d4e2-70a3b5c2d6e5+161a5b6c4d6e3+112a1b6c4d6e3-35a3b5c3d4e3-29a3b3c6d1e3+290a3b3c3d3e6-667a5b4c5d3e4-464a1b4c5d3e4+145a3b3c4d1e4-25a5b3c3d5e4+250a5b3c0d7e7-575a7b4c2d7e5-400a3b4c2d7e5+125a5b3c1d5e5+6a6b3c3d2e3-60a6b3c0d4e6+138a8b4c2d4e4+96a4b4c2d4e4-30a6b3c1d2e4-1a3b1c5d1e4+10a3b1c2d3e7-23a5b2c4d3e5-16a1b2c4d3e5+5a3b1c3d1e5
+Evaluation Set			Answer
+a0b4c1d5e4				0
+a2b3c5d0e1				0
+a2b7c5d1e0				0
+a5b6c7d4e2				318990858433169280
+
+B*D
+Input:	(7a1b4c2d3e1-29a1b2c3d0e2-25a3b2c0d4e3+6a4b2c0d1e2-1a1b0c2d0e3)*(4a3b1c0d1e2+24a4b4c2d0e2+28a2b3c2d1e0+18a1b3c0d2e1-16a1b4c4d0e2)
+Output:	28a4b5c2d4e3+168a5b8c4d3e3+196a3b7c4d4e1+126a2b7c2d5e2-112a2b8c6d3e3-116a4b3c3d1e4-696a5b6c5d0e4-812a3b5c5d1e2-522a2b5c3d2e3+464a2b6c7d0e4-100a6b3c0d5e5-600a7b6c2d4e5-700a5b5c2d5e3-450a4b5c0d6e4+400a4b6c4d4e5+24a7b3c0d2e4+144a8b6c2d1e4+168a6b5c2d2e2+108a5b5c0d3e3-96a5b6c4d1e4-4a4b1c2d1e5-24a5b4c4d0e5-28a3b3c4d1e3-18a2b3c2d2e4+16a2b4c6d0e5
+Evaluation Set			Answer
+a0b4c1d5e4				0
+a2b3c5d0e1				55008720000
+a2b7c5d1e0				0
+a5b6c7d4e2				139663078256947200
+
+C*D
+Input:	(a2b1c3d1e1-10a2b1c0d3e4+23a4b2c2d3e2+16a0b2c2d3e2-5a2b1c1d1e2)*(4a3b1c0d1e2+24a4b4c2d0e2+28a2b3c2d1e0+18a1b3c0d2e1-16a1b4c4d0e2)
+Output:	4a5b2c3d2e3+24a6b5c5d1e3+28a4b4c5d2e1+18a3b4c3d3e2-16a3b5c7d1e3-40a5b2c0d4e6-240a6b5c2d3e6-280a4b4c2d4e4-180a3b4c0d5e5+160a3b5c4d3e6+92a7b3c2d4e4+552a8b6c4d3e4+644a6b5c4d4e2+414a5b5c2d5e3-368a5b6c6d3e4+64a3b3c2d4e4+384a4b6c4d3e4+448a2b5c4d4e2+288a1b5c2d5e3-256a1b6c6d3e4-20a5b2c1d2e4-120a6b5c3d1e4-140a4b4c3d2e2-90a3b4c1d3e3+80a3b5c5d1e4
+Evaluation Set			Answer
+a0b4c1d5e4				0
+a2b3c5d0e1				0
+a2b7c5d1e0				0
+a5b6c7d4e2				18484209731985776640
+
+
+Runtime: 32315000

@@ -119,11 +119,12 @@ def run(
                     for term, di in simplified_expressions.items():
                         term_val = 1
                         for var_ix, var in enumerate(evaluation_set.variables):
-                            term_pow_ix = 2 * var_ix + 1
-                            var_val = evaluation_set.get_node(var).signed_value
-                            pow_val = int(term[term_pow_ix])
-                            var_to_the_pow = var_val ** pow_val
-                            term_val *= var_to_the_pow
+                            if var:
+                                term_pow_ix = 2 * var_ix + 1
+                                var_val = evaluation_set.get_node(var).signed_value
+                                pow_val = int(term[term_pow_ix])
+                                var_to_the_pow = var_val ** pow_val
+                                term_val *= var_to_the_pow
                         expression_val += di["signed_coef"] * term_val
 
                     output_content += f"{echoed_input}{tabs}{expression_val}\n"

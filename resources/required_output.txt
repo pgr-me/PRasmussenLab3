@@ -1,0 +1,151 @@
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# Peter Rasmussen, Lab 3
+# Polynomial simplification and evaluation
+# Input files:
+#	/Users/peter/PycharmProjects/PRasmussenLab3/resources/Required Polynomial Input.txt
+#	/Users/peter/PycharmProjects/PRasmussenLab3/resources/Required Evaluation Input.txt
+# Output file: /Users/peter/PycharmProjects/PRasmussenLab3/resources/required_output.txt
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+Polynomial input expression definitions
+A = 5x2y2z3+2x1y0z4+1x0y2z1+1x0y0z1
+B = 3x4y4z4+12x3y0z0+1x0y2z2+2x0y1z3	 
+C = 2x1y1z1
+D = 25x1y1z1-3x1y0z4-12x0y1z3
+A+B
+Input:	(5x2y2z3+2x1y0z4+1x0y2z1+1x0y0z1)+(3x4y4z4+12x3y0z0+1x0y2z2+2x0y1z3)
+Output:	5x2y2z3+2x1y0z4+1x0y2z1+1x0y0z1+3x4y4z4+12x3y0z0+1x0y2z2+2x0y1z3
+Evaluation Set			Answer
+x0y1z2					24
+x1y2z3					4761
+x2y1z0					96
+x4y-1z-4				194440
+
+A+C
+Input:	(5x2y2z3+2x1y0z4+1x0y2z1+1x0y0z1)+(2x1y1z1)
+Output:	5x2y2z3+2x1y0z4+1x0y2z1+1x0y0z1+2x1y1z1
+Evaluation Set			Answer
+x0y1z2					4
+x1y2z3					729
+x2y1z0					0
+x4y-1z-4				-3048
+
+A+D
+Input:	(5x2y2z3+2x1y0z4+1x0y2z1+1x0y0z1)+(25x1y1z1-3x1y0z4-12x0y1z3)
+Output:	5x2y2z3+1x0y2z1+1x0y0z1+25x1y1z1-12x0y1z3-1x1y0z4
+Evaluation Set			Answer
+x0y1z2					-92
+x1y2z3					-24
+x2y1z0					0
+x4y-1z-4				-6520
+
+B+C
+Input:	(3x4y4z4+12x3y0z0+1x0y2z2+2x0y1z3)+(2x1y1z1)
+Output:	3x4y4z4+12x3y0z0+1x0y2z2+2x0y1z3+2x1y1z1
+Evaluation Set			Answer
+x0y1z2					20
+x1y2z3					4056
+x2y1z0					96
+x4y-1z-4				197552
+
+B+D
+Input:	(3x4y4z4+12x3y0z0+1x0y2z2+2x0y1z3)+(25x1y1z1-3x1y0z4-12x0y1z3)
+Output:	3x4y4z4+12x3y0z0+1x0y2z2+25x1y1z1-3x1y0z4-10x0y1z3
+Evaluation Set			Answer
+x0y1z2					-76
+x1y2z3					3303
+x2y1z0					96
+x4y-1z-4				194080
+
+C+D
+Input:	(2x1y1z1)+(25x1y1z1-3x1y0z4-12x0y1z3)
+Output:	-3x1y0z4-12x0y1z3+27x1y1z1
+Evaluation Set			Answer
+x0y1z2					-96
+x1y2z3					-729
+x2y1z0					0
+x4y-1z-4				-3408
+
+B-A
+Input:	(3x4y4z4+12x3y0z0+1x0y2z2+2x0y1z3)-(5x2y2z3+2x1y0z4+1x0y2z1+1x0y0z1)
+Output:	3x4y4z4+12x3y0z0+1x0y2z2+2x0y1z3-5x2y2z3-2x1y0z4-1x0y2z1-1x0y0z1
+Evaluation Set			Answer
+x0y1z2					16
+x1y2z3					3327
+x2y1z0					96
+x4y-1z-4				200600
+
+B-D
+Input:	(3x4y4z4+12x3y0z0+1x0y2z2+2x0y1z3)-(25x1y1z1-3x1y0z4-12x0y1z3)
+Output:	3x4y4z4+12x3y0z0+1x0y2z2-25x1y1z1+3x1y0z4+14x0y1z3
+Evaluation Set			Answer
+x0y1z2					116
+x1y2z3					4785
+x2y1z0					96
+x4y-1z-4				200960
+
+A*B
+Input:	(5x2y2z3+2x1y0z4+1x0y2z1+1x0y0z1)*(3x4y4z4+12x3y0z0+1x0y2z2+2x0y1z3)
+Output:	15x6y6z7+60x5y2z3+5x2y4z5+10x2y3z6+6x5y4z8+24x4y0z4+2x1y2z6+4x1y1z7+3x4y6z5+12x3y2z1+1x0y4z3+2x0y3z4+3x4y4z5+12x3y0z1+1x0y2z3+2x0y1z4
+Evaluation Set			Answer
+x0y1z2					80
+x1y2z3					2899548
+x2y1z0					0
+x4y-1z-4				-608361600
+
+A*C
+Input:	(5x2y2z3+2x1y0z4+1x0y2z1+1x0y0z1)*(2x1y1z1)
+Output:	10x3y3z4+4x2y1z5+2x1y3z2+2x1y1z2
+Evaluation Set			Answer
+x0y1z2					0
+x1y2z3					8604
+x2y1z0					0
+x4y-1z-4				-98560
+
+A*D
+Input:	(5x2y2z3+2x1y0z4+1x0y2z1+1x0y0z1)*(25x1y1z1-3x1y0z4-12x0y1z3)
+Output:	125x3y3z4-15x3y2z7-60x2y3z6+50x2y1z5-6x2y0z8-24x1y1z7+25x1y3z2-3x1y2z5-12x0y3z4+25x1y1z2-3x1y0z5-12x0y1z4
+Evaluation Set			Answer
+x0y1z2					-384
+x1y2z3					-531297
+x2y1z0					0
+x4y-1z-4				10595200
+
+B*A
+Input:	(3x4y4z4+12x3y0z0+1x0y2z2+2x0y1z3)*(5x2y2z3+2x1y0z4+1x0y2z1+1x0y0z1)
+Output:	15x6y6z7+6x5y4z8+3x4y6z5+3x4y4z5+60x5y2z3+24x4y0z4+12x3y2z1+12x3y0z1+5x2y4z5+2x1y2z6+1x0y4z3+1x0y2z3+10x2y3z6+4x1y1z7+2x0y3z4+2x0y1z4
+Evaluation Set			Answer
+x0y1z2					80
+x1y2z3					2899548
+x2y1z0					0
+x4y-1z-4				-608361600
+
+B*C
+Input:	(3x4y4z4+12x3y0z0+1x0y2z2+2x0y1z3)*(2x1y1z1)
+Output:	6x5y5z5+24x4y1z1+2x1y3z3+4x1y2z4
+Evaluation Set			Answer
+x0y1z2					0
+x1y2z3					48528
+x2y1z0					0
+x4y-1z-4				6320640
+
+B*D
+Input:	(3x4y4z4+12x3y0z0+1x0y2z2+2x0y1z3)*(25x1y1z1-3x1y0z4-12x0y1z3)
+Output:	75x5y5z5-9x5y4z8-36x4y5z7+300x4y1z1-36x4y0z4-144x3y1z3+25x1y3z3-3x1y2z6-12x0y3z5+50x1y2z4-6x1y1z7-24x0y2z6
+Evaluation Set			Answer
+x0y1z2					-1920
+x1y2z3					-2996604
+x2y1z0					0
+x4y-1z-4				-679468800
+
+C*D
+Input:	(2x1y1z1)*(25x1y1z1-3x1y0z4-12x0y1z3)
+Output:	50x2y2z2-6x2y1z5-24x1y2z4
+Evaluation Set			Answer
+x0y1z2					0
+x1y2z3					-8892
+x2y1z0					0
+x4y-1z-4				-110080
+
+
+Runtime: 7904000
