@@ -1,9 +1,6 @@
-"""Peter Rasmussen, Lab 3, __main__.py
+"""Peter Rasmussen, Lab 3, tests/tests.py
 
-This program tests selected modules, including singly_linked_list, circular_list,
-and polynomial_syntax_checker.
-
-Run this module in the PRasmussenLab3/lab3 directory.
+This program tests selected modules.
 
 """
 
@@ -97,38 +94,6 @@ def test_parse_evaluation_input():
             print(f"\tVariable {var} = {node.value}")
 
         index += 1
-
-
-def test_combine_terms():
-    pass
-
-
-def test_evaluate_terms():
-    pass
-
-
-# def test_polynomial_syntax_checker():
-#    """Test polynomial syntax checker module."""
-#    from lab3.polynomial_syntax_checker import PolynomialSyntaxChecker, PolynomialSyntaxError
-#    print(f"\n{80 * '@'}\npolynomial_syntax_checker tests:")
-#    passed = True
-#    psc = PolynomialSyntaxChecker()
-#
-#    print("\nTest check_if_leading_zero method:")
-#    try:
-#        psc.check_if_leading_zero("054", column=1)
-#        print("\tPassed")
-#    except PolynomialSyntaxError:
-#        passed = True
-#        print("\tFailed")
-#
-#    print("\nTest check_if_legal_symbol method:")
-#    if passed:
-#        try:
-#            psc.check_if_legal_symbol("$A+0", column=1)
-#            print("\tPassed")
-#        except PolynomialSyntaxError:
-#            print("\tFailed")
 
 
 def main():

@@ -1,10 +1,6 @@
-"""Peter Rasmussen, Lab 3, parse_polynomial_input.py
+"""Peter Rasmussen, Lab 3, parsers/parse_polynomial_input.py
 
-This module provides the PrefixPreProcessor class, which reads a file of prefix statements character
-by character and checks each prefix statement for errors. PrefixPreProcessor.preprocess_prefix_input
-returns a list of dictionaries. Each dictionary corresponds to one line in the input file and
-contains prefix statements, errors (if any), and complexity metrics. This module uses the
-syntax_checker module to catch prefix syntax errors.
+This module parses polynomial expression input data and stores it in a PolynomialList.
 
 """
 

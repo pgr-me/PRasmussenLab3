@@ -1,4 +1,4 @@
-"""Peter Rasmussen, Lab 3, polynomial_term.py
+"""Peter Rasmussen, Lab 3, parsers/polynomial_term.py
 
 This module provides the PolynomialTerm class, which processes term-level (e.g., -4x2y3z0) strings.
 
