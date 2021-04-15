@@ -10,7 +10,7 @@ from pathlib import Path
 from time import time_ns
 
 # local imports
-from lab3.file_io import make_input_polynomial_string, make_header, write_footer
+from lab3.file_io import make_input_polynomial_string, make_header
 from lab3.parsers.parse_polynomial_input import parse_polynomial_input
 from lab3.parsers.parse_evaluation_input import parse_evaluation_input
 from lab3.polynomial_operations import polynomial_operations
